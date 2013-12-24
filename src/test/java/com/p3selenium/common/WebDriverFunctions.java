@@ -29,24 +29,25 @@ import com.thoughtworks.selenium.Wait;
 //import com.configuration.com.TestBase;
 
 public class WebDriverFunctions extends TestBase {
-	private Connection conn = null;
+	/*private Connection conn = null;
 	private Statement stmt;
 	private ResultSet rset = null;
 	private ResultSet rset_ocs = null;
 	private String Item[];
+	private Statement xlStmt = null;
+	private Connection xlCon = null;
+	private ResultSet xlRset = null;
+	private String sessionID;
+	private String baseUrl;
+	private static WebDriverWait wait;
+	private JavascriptExecutor js;*/
 	private int flag = 0; // Indicator of pass/ fail i.e. if flag=1
 	private WebElement onElement;
 	private String s_flag = null;
 	private Long splittedText;
-	private String sessionID;
-	private String baseUrl;
-	private static WebDriverWait wait;
-	private JavascriptExecutor js;
 	private String originalWindowHandle;
 	private WebDriverBackedSelenium selenium;
-	private Statement xlStmt = null;
-	private Connection xlCon = null;
-	private ResultSet xlRset = null;
+	
 
 	// WebDriver driver=null;
 	// TestBase testbase=new TestBase();
@@ -1901,4 +1902,9 @@ public class WebDriverFunctions extends TestBase {
 		System.out.println(cells_text);
 		return cells_text;
 	}
+	
+	  public void openURL() {
+	  getDriver().get(("https://qa.aynax.com/login.php")); }
+	 
+
 }

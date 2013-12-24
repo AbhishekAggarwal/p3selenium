@@ -39,7 +39,7 @@ public class C377 extends TestBase {
 
 		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-		// moving to new invoice
+		/*// moving to new invoice
 
 		getDriver().findElement(By.id("headlineButton")).click();
 
@@ -125,7 +125,7 @@ public class C377 extends TestBase {
 						By.xpath("html/body/table[3]/tbody/tr/td/table[6]/tbody/tr/td/table/tbody/tr/td[7]/form/input"))
 				.isEnabled());
 
-		Reporter.log("Save button is found");
+		Reporter.log("Save button is found");*/
 
 	}
 }
