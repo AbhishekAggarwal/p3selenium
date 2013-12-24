@@ -21,6 +21,7 @@ import com.p3selenium.common.Aynax_Constants;
 import com.p3selenium.common.Login;
 import com.p3selenium.common.TestBase;
 import com.p3selenium.common.WebDriverFunctions;
+import com.p3selenium.data.LoadProperty;
 import com.thoughtworks.selenium.SeleneseTestBase;
 
 public class C377 extends TestBase {
@@ -31,6 +32,11 @@ public class C377 extends TestBase {
 		wdFunc.setDriver(this.getDriver());
 		getDriver().get(Aynax_Constants.DeltaConstants.url);
 		Login login = new Login();
+		System.out.println("1");
+		LoadProperty property=new LoadProperty();
+		
+		property.getVar("data.email");
+		System.out.println("email");
 
 		login.login(wdFunc, "testingmember30@gmail.com", "123456");
 

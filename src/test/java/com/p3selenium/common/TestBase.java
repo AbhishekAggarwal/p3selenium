@@ -4,7 +4,9 @@ import java.net.MalformedURLException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
@@ -41,6 +43,8 @@ public class TestBase {
 			capability = DesiredCapabilities.firefox();
 			capability.setBrowserName("firefox");
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
+			//FirefoxProfile firefoxProfile=new FirefoxProfile();
+			//firefoxProfile.setPreference("", value)
 			setDriver(new FirefoxDriver(capability));
 			getDriver().manage().window().maximize();
 			System.out.println("firefox driver");
@@ -66,6 +70,9 @@ public class TestBase {
 
 		if (browser.equalsIgnoreCase("chrome")) {
 
+			ChromeOptions chromeOptions= new ChromeOptions();
+			//chromeOptions.
+			//capability.
 			capability = DesiredCapabilities.chrome();
 			System.setProperty("webdriver.chrome.driver",
 					"C:\\chromedriver.exe");
@@ -73,6 +80,8 @@ public class TestBase {
 			 * System.setProperty("webdriver.ie.driver", project_root +
 			 * "\\src\\test\\resources\\driver\\chromedriver.exe");
 			 */
+
+			//prompt_for_download
 			capability.setBrowserName("chrome");
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
 			setDriver(new ChromeDriver(capability));
