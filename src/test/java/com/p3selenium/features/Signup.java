@@ -1,6 +1,6 @@
 //Created by Anurag 18-10-13.......//
 
-package com.p3selenium.common;
+package com.p3selenium.features;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -41,6 +41,10 @@ public class Signup {
     
     firstUser=al1.get(0);
     //System.out.println(firstUser);
+    
+    /*Lib lib =new Lib();
+	  firstUser=lib.fetchDataFromCSV();*/
+    
     al1.remove(0);
     
     //System.out.println(al1);

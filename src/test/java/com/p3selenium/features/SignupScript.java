@@ -1,4 +1,4 @@
-package com.p3selenium.common;
+package com.p3selenium.features;
 import org.testng.annotations.Test;
 import org.testng.annotations.Test;
 import org.testng.annotations.Test;
@@ -12,6 +12,10 @@ import jxl.Workbook;
 
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
+import com.p3selenium.base.WebDriverFunctions;
+import com.p3selenium.data.Aynax_Constants;
+import com.p3selenium.data.Aynax_Constants.DeltaConstants;
 
 public class SignupScript extends WebDriverFunctions {
 	

@@ -1,4 +1,4 @@
-package com.p3selenium.common;
+package com.p3selenium.features;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,12 +1,14 @@
-package com.p3selenium.common;
+package com.p3selenium.base;
 
+/**
+ * @author ABHISHEK
+ *
+ */
 import java.net.MalformedURLException;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
@@ -14,23 +16,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
-public class TestBase {
-	/*
-	 * Connection conn = null; Statement stmt; ResultSet rset = null; ResultSet
-	 * rset_ocs = null; String Item[]; int flag = 0; // Indicator of pass/ fail
-	 * i.e. if flag=1 Long splittedText; public String sessionID;
-	 */
+public class TestBase extends Bean {
 	private WebDriver driver = null;
+
 	private DesiredCapabilities capability = null;
-	String project_root = System.getProperty("user.dir");
 
-	/*
-	 * private String baseUrl; static WebDriverWait wait; JavascriptExecutor js;
-	 * String originalWindowHandle; WebDriverBackedSelenium selenium; Statement
-	 * xlStmt = null; Connection xlCon = null; ResultSet xlRset = null;
-	 */
-
-	// protected ThreadLocal<RemoteWebDriver> threadDriver = null;
+	// private String project_root = System.getProperty("user.dir");
+	// private LoadProperty property = null;
 
 	@Parameters({ "browser" })
 	@BeforeClass
@@ -43,14 +35,11 @@ public class TestBase {
 			capability = DesiredCapabilities.firefox();
 			capability.setBrowserName("firefox");
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
-			//FirefoxProfile firefoxProfile=new FirefoxProfile();
-			//firefoxProfile.setPreference("", value)
 			setDriver(new FirefoxDriver(capability));
 			getDriver().manage().window().maximize();
 			System.out.println("firefox driver");
 			System.out.println(getDriver());
 			return getDriver();
-			// capability.setVersion("");
 		}
 
 		if (browser.equalsIgnoreCase("iexplore")) {
@@ -63,25 +52,14 @@ public class TestBase {
 			getDriver().manage().window().maximize();
 			System.out.println("IE driver");
 			return getDriver();
-			// System.setProperty("webdriver.ie.driver",
-			// "C:\\Program Files\\Internet Explorer\\iexplore.exe");
-			// capability.setVersion("");
+
 		}
 
 		if (browser.equalsIgnoreCase("chrome")) {
 
-			ChromeOptions chromeOptions= new ChromeOptions();
-			//chromeOptions.
-			//capability.
 			capability = DesiredCapabilities.chrome();
-			System.setProperty("webdriver.chrome.driver",
-					"C:\\chromedriver.exe");
-			/*
-			 * System.setProperty("webdriver.ie.driver", project_root +
-			 * "\\src\\test\\resources\\driver\\chromedriver.exe");
-			 */
-
-			//prompt_for_download
+			System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+			// prompt_for_download
 			capability.setBrowserName("chrome");
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
 			setDriver(new ChromeDriver(capability));
@@ -91,11 +69,6 @@ public class TestBase {
 			return getDriver();
 
 		}
-		// setDriver(new RemoteWebDriver(new
-		// URL("http://172.16.1.120:5559/wd/hub"), capability));
-		// driver.navigate().to("http://qa.aynax.com/");
-
-		// driver.get("http://qa.aynax.com/");
 
 		return getDriver();
 	}
