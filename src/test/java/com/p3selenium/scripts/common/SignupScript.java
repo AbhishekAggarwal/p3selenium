@@ -1,4 +1,4 @@
-package com.p3selenium.features;
+package com.p3selenium.scripts.common;
 import org.testng.annotations.Test;
 import org.testng.annotations.Test;
 import org.testng.annotations.Test;
@@ -13,11 +13,11 @@ import jxl.Workbook;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import com.p3selenium.base.WebDriverFunctions;
+import com.p3selenium.base.WebDriverFactory;
 import com.p3selenium.data.Aynax_Constants;
 import com.p3selenium.data.Aynax_Constants.DeltaConstants;
 
-public class SignupScript extends WebDriverFunctions {
+public class SignupScript extends WebDriverFactory {
 	
 	
 	
@@ -34,10 +34,9 @@ public class SignupScript extends WebDriverFunctions {
 	public void testLink(String emailid, String password)throws Exception
     {
 
-		WebDriverFunctions wdFunc = new WebDriverFunctions();
+		WebDriverFactory wdFunc = new WebDriverFactory();
 		wdFunc.setDriver(this.getDriver());
 		getDriver().get(("https://qa.aynax.com/"));
-		browsermaximize();
 		wdFunc.click("Sign Up", "link");
 		Thread.sleep(3000);
 		wdFunc.typeText(Aynax_Constants.DeltaConstants.u_emailname, emailid,"name");

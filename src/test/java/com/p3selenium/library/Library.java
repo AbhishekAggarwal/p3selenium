@@ -1,11 +1,14 @@
-package com.p3selenium.features;
+package com.p3selenium.library;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Lib {
+import com.p3selenium.base.WebDriverFactory;
+import com.p3selenium.data.Aynax_Constants;
+
+public class Library {
 
 	private String user;
 	private List<String> al1=null;
@@ -34,5 +37,30 @@ public class Lib {
 		}
 		user=al1.get(0);
 		return user;
+	}
+	
+	
+	
+
+/*	public void openURL(String url) throws Exception {
+		// driver= testbase.setup(url2);
+		// System.out.println("SDjgf"+driver);
+		getDriver().get(url);
+
+	}*/
+
+	public void login(WebDriverFactory wdFunc, String email, String password)
+			throws Exception {
+
+		// Login
+		wdFunc.click("Login", "link");
+		Thread.sleep(1000);
+		wdFunc.typeText(Aynax_Constants.DeltaConstants.u_emailname, email,
+				"name");
+		wdFunc.typeText(Aynax_Constants.DeltaConstants.u_password, password,
+				"name");
+
+		wdFunc.click("submit", "name");
+
 	}
 }

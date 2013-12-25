@@ -6,21 +6,23 @@ package com.p3selenium.scripts;
  */
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import com.p3selenium.base.TestBase;
-import com.p3selenium.base.WebDriverFunctions;
+import com.p3selenium.base.WebDriverFactory;
 import com.p3selenium.data.Aynax_Constants;
 import com.p3selenium.data.LoadProperty;
-import com.p3selenium.features.Login;
+import com.p3selenium.scripts.common.Login;
 
 public class Test1 extends TestBase {
 	@Test
 	public void testLink() throws Exception {// Login into the application
 
-		WebDriverFunctions wdFunc = new WebDriverFunctions();
+		WebDriverFactory wdFunc = new WebDriverFactory();
 		wdFunc.setDriver(this.getDriver());
+		// getDriver().findElement(By.id("kj")).click();
 		getDriver().get(Aynax_Constants.DeltaConstants.url);
 		Login login = new Login();
 		System.out.println("1");
@@ -31,11 +33,12 @@ public class Test1 extends TestBase {
 
 		wdFunc.click("Login", "link");
 
-		/*login.login(wdFunc, this.getProperty(), "testingmember30@gmail.com",
-				"123456");*/
-		
-		login.login(wdFunc,"testingmember30@gmail.com",
-				"123456");
+		/*
+		 * login.login(wdFunc, this.getProperty(), "testingmember30@gmail.com",
+		 * "123456");
+		 */
+
+		login.login(wdFunc, "testingmember30@gmail.com", "123456");
 
 		AssertJUnit.assertEquals("List of Invoices:: Aynax.com", getDriver()
 				.getTitle());

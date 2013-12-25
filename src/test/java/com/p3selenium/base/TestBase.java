@@ -13,70 +13,68 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
+
+import com.p3selenium.data.LoadProperty;
 
 public class TestBase extends Bean {
 	private WebDriver driver = null;
 
 	private DesiredCapabilities capability = null;
+	String test_name = null;
 
 	// private String project_root = System.getProperty("user.dir");
 	// private LoadProperty property = null;
 
 	@Parameters({ "browser" })
 	@BeforeClass
-	public WebDriver setup(String browser) throws MalformedURLException {
-
+	public WebDriver init(String browser) throws MalformedURLException {
+		String url=LoadProperty.getVar("data.url");	
+		System.out.println("url"+url);
+		test_name = this.getClass().getSimpleName();
+		System.out.println("Starting Test Name: \t"+test_name);
 		if (browser.equalsIgnoreCase("firefox")) {
-
 			System.setProperty("webdriver.firefox.driver",
 					"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
 			capability = DesiredCapabilities.firefox();
-			capability.setBrowserName("firefox");
+			capability.setBrowserName(browser);
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
 			setDriver(new FirefoxDriver(capability));
-			getDriver().manage().window().maximize();
-			System.out.println("firefox driver");
-			System.out.println(getDriver());
-			return getDriver();
 		}
 
-		if (browser.equalsIgnoreCase("iexplore")) {
+		else if (browser.equalsIgnoreCase("iexplore")) {
 			System.out.println("iexplore");
 			capability = DesiredCapabilities.internetExplorer();
 			System.setProperty("webdriver.ie.driver", "C:\\IEDriverServer.exe");
-			capability.setBrowserName("iexplore");
+			capability.setBrowserName(browser);
 			capability.setPlatform(org.openqa.selenium.Platform.WINDOWS);
 			setDriver(new InternetExplorerDriver(capability));
-			getDriver().manage().window().maximize();
-			System.out.println("IE driver");
-			return getDriver();
-
 		}
 
-		if (browser.equalsIgnoreCase("chrome")) {
-
+		else if (browser.equalsIgnoreCase("chrome")) {
 			capability = DesiredCapabilities.chrome();
-			System.setProperty("webdriver.chrome.driver", "C:\\chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver",
+					"C:\\chromedriver.exe");
 			// prompt_for_download
-			capability.setBrowserName("chrome");
+			capability.setBrowserName(browser);
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
 			setDriver(new ChromeDriver(capability));
-			getDriver().manage().window().maximize();
-			System.out.println("chrome driver");
-			System.out.println(getDriver());
-			return getDriver();
 
 		}
 
+		getDriver().manage().window().maximize();
 		return getDriver();
 	}
 
 	@AfterMethod
 	@AfterClass
 	public void tearDown() {
+		System.out.println("Ending Test Name: \t"+test_name);
+		System.out.println("Shuting down driver of Test Name: \t"+test_name);
 		driver.quit();
+		System.out.println("Test Name : \t"+test_name+"\t:executed successfully");
 	}
 
 	public WebDriver getDriver() {
@@ -85,6 +83,14 @@ public class TestBase extends Bean {
 
 	public void setDriver(WebDriver driver) {
 		this.driver = driver;
+	}
+
+	@AfterSuite(alwaysRun = true)
+	public void tearDownAfterSuit() {
+		if (driver != null) {
+			System.out.println("Driver of Test name: "+test_name+" is closing at the end of suit, means this script did not worked properly");
+			driver.quit();
+		}
 	}
 
 }
