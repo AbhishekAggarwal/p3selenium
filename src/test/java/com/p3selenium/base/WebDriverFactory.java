@@ -30,39 +30,31 @@ import com.thoughtworks.selenium.Wait;
 //import com.configuration.com.TestBase;
 
 public class WebDriverFactory extends TestBase {
-	/*private Connection conn = null;
-	private Statement stmt;
-	private ResultSet rset = null;
-	private ResultSet rset_ocs = null;
-	private String Item[];
-	private Statement xlStmt = null;
-	private Connection xlCon = null;
-	private ResultSet xlRset = null;
-	private String sessionID;
-	private String baseUrl;
-	private static WebDriverWait wait;
-	private JavascriptExecutor js;*/
+	/*
+	 * private Connection conn = null; private Statement stmt; private ResultSet
+	 * rset = null; private ResultSet rset_ocs = null; private String Item[];
+	 * private Statement xlStmt = null; private Connection xlCon = null; private
+	 * ResultSet xlRset = null; private String sessionID; private String
+	 * baseUrl; private static WebDriverWait wait; private JavascriptExecutor
+	 * js;
+	 */
 	private int flag = 0; // Indicator of pass/ fail i.e. if flag=1
-	
-	
+
 	private Long splittedText;
 	private String originalWindowHandle;
 	private WebDriverBackedSelenium selenium;
-	
+
+	WebElement element;
 
 	// WebDriver driver=null;
 	// TestBase testbase=new TestBase();
 	// WebDriver driver=new WebDriver();
 
-
 	/*
-	 //  Set execution speed (i.e., set the millisecond length of a delay which will follow each selenium operation).
-	 * public void setSpeed(String msec) {
-		if (!(msec.equals(null))) {
-			selenium.setSpeed(msec);
-		}
-	}*/
-
+	 * // Set execution speed (i.e., set the millisecond length of a delay which
+	 * will follow each selenium operation). public void setSpeed(String msec) {
+	 * if (!(msec.equals(null))) { selenium.setSpeed(msec); } }
+	 */
 
 	/*
 	 * WebElement onElement=
@@ -70,10 +62,61 @@ public class WebDriverFactory extends TestBase {
 	 * System.out.println("Tooltip : " + onElement.getAttribute("title"));
 	 */
 
+	public WebElement findElement(String element_name, String element_type) {
+		try{
+		if (element_type.equalsIgnoreCase("name")) {
+			element = getDriver().findElement(By.name(element_name));
+			flag = 1;
+		} else if (element_type.equalsIgnoreCase("css")) {
+			element = getDriver().findElement(By.cssSelector(element_name));
+			flag = 1;
+		} else if (element_type.equalsIgnoreCase("link")) {
+			System.out.println("link");
+			System.out.println("Element Name: \t"+element_name);
+			element = getDriver().findElement(By.linkText(element_name));
+			flag = 1;
+		} else if (element_type.equalsIgnoreCase("class")) {
+			element = getDriver().findElement(By.className(element_name));
+			flag = 1;
+		} else if (element_type.equalsIgnoreCase("id")) {
+			element = getDriver().findElement(By.id(element_name));
+			flag = 1;
+		} else if (element_type.equalsIgnoreCase("name")
+				|| element_type.equalsIgnoreCase("value")
+				|| element_type.equalsIgnoreCase("label")) {
+			element = getDriver().findElement(By.name(element_name));
+			flag = 1;
+		} else if (element_type.equalsIgnoreCase("xpath")) {
+			element = getDriver().findElement(By.xpath(element_name));
+			flag = 1;
+		}
+		else if (element_type.equalsIgnoreCase("tag")) {
+			element = getDriver().findElement(By.tagName(element_name));
+			flag = 1;
+		}
+		else if (element_type.equalsIgnoreCase("partialLinkText")) {
+			element = getDriver().findElement(By.partialLinkText(element_name));
+			flag = 1;
+		}
+
+		return element;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	public int typeText(String fieldname, String fieldvalue, String type) {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (fieldname != null && fieldvalue != null) {
+
+				/*element = findElement(fieldname, type);
+				element.clear();
+				element.sendKeys(fieldvalue);*/
+
 				if (type.equalsIgnoreCase("name")) {
 
 					getDriver().findElement(By.name(fieldname)).clear();
@@ -263,7 +306,11 @@ public class WebDriverFactory extends TestBase {
 	public int click(String objectclicked, String type) {
 		try {
 			// Thread.sleep(Constants.DeltaConstants.time);
-			if (objectclicked != null) {
+			System.out.println(element);
+			element = findElement(objectclicked, type);
+			element.click();
+			
+			/*if (objectclicked != null) {
 				if ("css".equalsIgnoreCase(type)) {
 					if (getDriver().findElement(By.cssSelector(objectclicked))
 							.isEnabled()) {
@@ -348,7 +395,7 @@ public class WebDriverFactory extends TestBase {
 				}
 				return flag;
 			} else
-				flag = 0;
+				flag = 0;*/
 			return flag;
 		} catch (Exception ex) {
 			return 0;
@@ -1724,9 +1771,9 @@ public class WebDriverFactory extends TestBase {
 		System.out.println(cells_text);
 		return cells_text;
 	}
-	
-	  public void openURL() {
-	  getDriver().get(("https://qa.aynax.com/login.php")); }
-	 
+
+	public void openURL() {
+		getDriver().get(("https://qa.aynax.com/login.php"));
+	}
 
 }
