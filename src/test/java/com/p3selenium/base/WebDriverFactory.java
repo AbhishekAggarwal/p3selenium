@@ -44,6 +44,8 @@ public class WebDriverFactory extends TestBase {
 	private String originalWindowHandle;
 	private WebDriverBackedSelenium selenium;
 
+	/*private String element_name;
+	private String element_type;*/
 	WebElement element;
 
 	// WebDriver driver=null;
@@ -103,7 +105,10 @@ public class WebDriverFactory extends TestBase {
 		}
 		catch(Exception e)
 		{
+			System.out.println("------------------------------------------------------------------");
+			System.out.println("Error in WebDriverFactory Class while finding the element on page");
 			e.printStackTrace();
+			System.out.println("------------------------------------------------------------------");
 			return null;
 		}
 	}
@@ -112,11 +117,16 @@ public class WebDriverFactory extends TestBase {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (fieldname != null && fieldvalue != null) {
-
-				/*element = findElement(fieldname, type);
-				element.clear();
-				element.sendKeys(fieldvalue);*/
-
+			element = findElement(fieldname, type);
+			element.clear();
+			element.sendKeys(fieldvalue);
+			}
+			else
+			{
+				flag = 0;
+			}
+			/*if (fieldname != null && fieldvalue != null) {
+				
 				if (type.equalsIgnoreCase("name")) {
 
 					getDriver().findElement(By.name(fieldname)).clear();
@@ -141,7 +151,7 @@ public class WebDriverFactory extends TestBase {
 
 			} else {
 				flag = 0;
-			}
+			}*/
 
 			return flag;
 		} catch (Exception ex) {
@@ -157,6 +167,16 @@ public class WebDriverFactory extends TestBase {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (fieldname != null && type != null) {
+			element = findElement(fieldname, type);
+			element.clear();
+			element.sendKeys(fieldname);
+			}
+			else {
+				flag=0;
+			}
+			
+			
+			if (fieldname != null && type != null) {
 				if (type.equalsIgnoreCase("name")) {
 					getDriver().findElement(By.name(fieldname)).sendKeys("\n");
 					flag = 1;
@@ -171,7 +191,8 @@ public class WebDriverFactory extends TestBase {
 			}
 
 		} catch (Exception ex) {
-
+			ex.printStackTrace();
+			return 0;
 		}
 		return flag;
 
@@ -305,11 +326,16 @@ public class WebDriverFactory extends TestBase {
 	 */
 	public int click(String objectclicked, String type) {
 		try {
+			if (objectclicked != null) {
 			// Thread.sleep(Constants.DeltaConstants.time);
 			System.out.println(element);
 			element = findElement(objectclicked, type);
 			element.click();
-			
+			}
+			else
+			{
+				flag = 0;
+			}
 			/*if (objectclicked != null) {
 				if ("css".equalsIgnoreCase(type)) {
 					if (getDriver().findElement(By.cssSelector(objectclicked))
