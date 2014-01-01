@@ -1,0 +1,7 @@
+WebDriverFactory class contains the functions that you need while automating a test-case.
+
+You can use the methods of WebDriverFactory by creating object of WebDriverFactory class. Use below code to instantiate WebDriverFactory class.
+
+"WebDriverFactory wdFunc = new WebDriverFactory();"  
+
+It contains below methods:
