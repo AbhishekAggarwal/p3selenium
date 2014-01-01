@@ -4,10 +4,10 @@ import org.openqa.selenium.By;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
-import com.p3selenium.base.TestBase;
-import com.p3selenium.base.WebDriverFactory;
-import com.p3selenium.data.Aynax_Constants;
-import com.p3selenium.scripts.common.Login;
+import com.p3selenium.assests.pname.product_family_level.common_lib.functions.TestBase;
+import com.p3selenium.assests.pname.product_family_level.common_lib.functions.WebDriverFactory;
+import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.Aynax_Constants;
+import com.p3selenium.assests.pname.product_level.pname.common_lib.scripts.Login;
 import com.thoughtworks.selenium.SeleneseTestBase;
 
 public class C377 extends TestBase {

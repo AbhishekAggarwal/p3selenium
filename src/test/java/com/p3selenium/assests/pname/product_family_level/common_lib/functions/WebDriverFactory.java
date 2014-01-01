@@ -1,4 +1,4 @@
-package com.p3selenium.base;
+package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -23,7 +23,7 @@ import org.testng.annotations.AfterMethod;
 
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
-import com.p3selenium.data.Aynax_Constants;
+import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.Aynax_Constants;
 import com.thoughtworks.selenium.SeleniumException;
 import com.thoughtworks.selenium.Wait;
 

@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.p3selenium.base;
+package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-import com.p3selenium.data.LoadProperty;
+import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.LoadProperty;
 
 /**
  * @author ABHISHEK

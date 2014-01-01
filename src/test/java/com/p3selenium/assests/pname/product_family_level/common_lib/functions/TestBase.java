@@ -1,4 +1,4 @@
-package com.p3selenium.base;
+package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 /**
  * @author ABHISHEK
@@ -17,7 +17,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
-import com.p3selenium.data.LoadProperty;
+import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.LoadProperty;
 
 public class TestBase extends Bean {
 	private WebDriver driver = null;
