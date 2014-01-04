@@ -1,4 +1,4 @@
-package com.p3selenium.assests.pname.product_level.pname.common_lib.data_source;
+package com.p3selenium.assests.pname.product_family_level.common_lib.data_source;
 
 public class Aynax_Constants {
 

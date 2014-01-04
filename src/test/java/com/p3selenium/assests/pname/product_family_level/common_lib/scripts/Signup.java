@@ -1,6 +1,6 @@
 //Created by Anurag 18-10-13.......//
 
-package com.p3selenium.assests.pname.product_level.pname.common_lib.scripts;
+package com.p3selenium.assests.pname.product_family_level.common_lib.scripts;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

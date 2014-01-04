@@ -1,12 +1,11 @@
-package com.p3selenium.assests.pname.product_level.pname.common_lib.functions;
+package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.p3selenium.assests.pname.product_family_level.common_lib.functions.WebDriverFactory;
-import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.Aynax_Constants;
+import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.Aynax_Constants;
 
 public class Library {
 

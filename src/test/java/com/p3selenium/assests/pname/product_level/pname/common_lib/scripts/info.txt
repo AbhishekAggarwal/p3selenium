@@ -1,0 +1,4 @@
+@Path: com.p3selenium.assests.pname.product_level.pname.common_lib.scripts
+
+@Info: This folder contains the common scripts of the sub product
+

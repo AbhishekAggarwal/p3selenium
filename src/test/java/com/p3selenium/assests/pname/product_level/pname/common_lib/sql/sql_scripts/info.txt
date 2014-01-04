@@ -1,0 +1,4 @@
+@Path: com.p3selenium.assests.pname.product_level.pname.common_lib.sql.sql_scripts
+
+@Info: This folder contains the SQL scripts of sub product
+

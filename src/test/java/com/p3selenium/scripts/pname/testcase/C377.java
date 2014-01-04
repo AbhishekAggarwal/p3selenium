@@ -1,21 +1,17 @@
 package com.p3selenium.scripts.pname.testcase;
 
-import org.openqa.selenium.By;
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
+import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.Aynax_Constants;
 import com.p3selenium.assests.pname.product_family_level.common_lib.functions.TestBase;
 import com.p3selenium.assests.pname.product_family_level.common_lib.functions.WebDriverFactory;
-import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.Aynax_Constants;
-import com.p3selenium.assests.pname.product_level.pname.common_lib.scripts.Login;
-import com.thoughtworks.selenium.SeleneseTestBase;
+import com.p3selenium.assests.pname.product_family_level.common_lib.scripts.Login;
 
 public class C377 extends TestBase {
 	@Test
 	public void testLink() throws Exception {
 		System.out.println("Starting Script C377");
 		WebDriverFactory wdFunc = new WebDriverFactory();
-		SeleneseTestBase nb = new SeleneseTestBase();
 		wdFunc.setDriver(this.getDriver());
 		getDriver().get(Aynax_Constants.DeltaConstants.url);
 		Login login = new Login();

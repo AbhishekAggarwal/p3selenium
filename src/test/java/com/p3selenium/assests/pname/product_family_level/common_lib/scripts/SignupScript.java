@@ -1,4 +1,4 @@
-package com.p3selenium.assests.pname.product_level.pname.common_lib.scripts;
+package com.p3selenium.assests.pname.product_family_level.common_lib.scripts;
 import org.testng.annotations.Test;
 import org.testng.annotations.Test;
 import org.testng.annotations.Test;
@@ -13,9 +13,9 @@ import jxl.Workbook;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.Aynax_Constants;
+import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.Aynax_Constants.DeltaConstants;
 import com.p3selenium.assests.pname.product_family_level.common_lib.functions.WebDriverFactory;
-import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.Aynax_Constants;
-import com.p3selenium.assests.pname.product_level.pname.common_lib.data_source.Aynax_Constants.DeltaConstants;
 
 public class SignupScript extends WebDriverFactory {
 	

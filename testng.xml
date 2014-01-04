@@ -4,7 +4,7 @@
 	<parameter name="browser" value="chrome">
 		<test name="Test">
 			<classes>
-				<class name="com.p3selenium.scripts.Test1" />
+				<class name="com.p3selenium.scripts.pname.testcase.C377" />
 				
 			</classes>
 		</test> <!-- Test -->

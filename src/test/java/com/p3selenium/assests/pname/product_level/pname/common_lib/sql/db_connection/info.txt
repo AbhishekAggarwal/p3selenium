@@ -1,0 +1,4 @@
+@Path: com.p3selenium.assests.pname.product_level.pname.common_lib.sql.db_connection
+
+@Info: This folder contains the database connections of sub product
+
