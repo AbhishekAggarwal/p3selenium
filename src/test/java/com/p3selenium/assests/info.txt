@@ -1,0 +1,4 @@
+@Path: com.p3selenium.assests
+
+@Info: This folder contains anything that is not your script but related to your script or something general.  
+
