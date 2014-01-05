@@ -21,6 +21,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterMethod;
 
+import com.itextpdf.text.log.SysoLogger;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.Aynax_Constants;
@@ -44,8 +45,9 @@ public class WebDriverFactory extends TestBase {
 	private String originalWindowHandle;
 	private WebDriverBackedSelenium selenium;
 
-	/*private String element_name;
-	private String element_type;*/
+	/*
+	 * private String element_name; private String element_type;
+	 */
 	WebElement element;
 
 	// WebDriver driver=null;
@@ -64,52 +66,102 @@ public class WebDriverFactory extends TestBase {
 	 * System.out.println("Tooltip : " + onElement.getAttribute("title"));
 	 */
 
-	public WebElement findElement(String element_name, String element_type) {
-		try{
-		if (element_type.equalsIgnoreCase("name")) {
-			element = getDriver().findElement(By.name(element_name));
-			flag = 1;
-		} else if (element_type.equalsIgnoreCase("css")) {
-			element = getDriver().findElement(By.cssSelector(element_name));
-			flag = 1;
-		} else if (element_type.equalsIgnoreCase("link")) {
-			System.out.println("link");
-			System.out.println("Element Name: \t"+element_name);
-			element = getDriver().findElement(By.linkText(element_name));
-			flag = 1;
-		} else if (element_type.equalsIgnoreCase("class")) {
-			element = getDriver().findElement(By.className(element_name));
-			flag = 1;
-		} else if (element_type.equalsIgnoreCase("id")) {
-			element = getDriver().findElement(By.id(element_name));
-			flag = 1;
-		} else if (element_type.equalsIgnoreCase("name")
-				|| element_type.equalsIgnoreCase("value")
-				|| element_type.equalsIgnoreCase("label")) {
-			element = getDriver().findElement(By.name(element_name));
-			flag = 1;
-		} else if (element_type.equalsIgnoreCase("xpath")) {
-			element = getDriver().findElement(By.xpath(element_name));
-			flag = 1;
-		}
-		else if (element_type.equalsIgnoreCase("tag")) {
-			element = getDriver().findElement(By.tagName(element_name));
-			flag = 1;
-		}
-		else if (element_type.equalsIgnoreCase("partialLinkText")) {
-			element = getDriver().findElement(By.partialLinkText(element_name));
-			flag = 1;
-		}
+	/*
+	 * Details of methods will go here Methods that we have in WebDriverFatory
+	 * are as follows 1. findElement(String element_name, String
+	 * element_type):Webelement
+	 */
 
-		return element;
-		}
-		catch(Exception e)
-		{
-			System.out.println("------------------------------------------------------------------");
-			System.out.println("Error in WebDriverFactory Class while finding the element on page");
+	/*
+	 * find the element on page
+	 * 
+	 * @param element_name , element_type
+	 * 
+	 * @return WebElement
+	 */
+	public WebElement findElement(String element_name, String element_type) {
+		try {
+			if (element_type.equalsIgnoreCase("name")) {
+				element = getDriver().findElement(By.name(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("css")) {
+				element = getDriver().findElement(By.cssSelector(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("link")) {
+				System.out.println("link");
+				System.out.println("Element Name: \t" + element_name);
+				element = getDriver().findElement(By.linkText(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("class")) {
+				element = getDriver().findElement(By.className(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("id")) {
+				element = getDriver().findElement(By.id(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("name")
+					|| element_type.equalsIgnoreCase("value")
+					|| element_type.equalsIgnoreCase("label")) {
+				element = getDriver().findElement(By.name(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("xpath")) {
+				element = getDriver().findElement(By.xpath(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("tag")) {
+				element = getDriver().findElement(By.tagName(element_name));
+				flag = 1;
+			} else if (element_type.equalsIgnoreCase("partialLinkText")) {
+				element = getDriver().findElement(
+						By.partialLinkText(element_name));
+				flag = 1;
+			}
+
+			return element;
+		} catch (Exception e) {
+			System.out
+					.println("------------------------------------------------------------------");
+			System.out
+					.println("Error in WebDriverFactory Class while finding the element on page");
+			System.out.println("Element name was " + element_name
+					+ "which was not found" + "and type was" + element_type);
+			System.out.println("Below is the Stack Trace");
 			e.printStackTrace();
-			System.out.println("------------------------------------------------------------------");
+			System.out
+					.println("------------------------------------------------------------------");
 			return null;
+			/*
+			 * @Dev: Abhishek
+			 * 
+			 * @Status: Development see and update the exception handling
+			 * mechanism. use centralized exception handling ref:
+			 * http://stackoverflow
+			 * .com/questions/6909920/common-centralized-method
+			 * -to-handle-multiple-exceptions Also find and implement a graceful
+			 * shutting down method of script when ever this error occur
+			 */
+		}
+	}
+
+	/*
+	 * Function for clicking a link, button or radio button
+	 * 
+	 * @param 
+	 * 
+	 * @return int
+	 */
+	//public int click(String objectclicked, String type) {
+	public int click(String element_name, String element_type) {
+		try {
+			if (element_name != null) {
+				// Thread.sleep(Constants.DeltaConstants.time);
+				System.out.println(element);
+				element = findElement(element_name, element_type);
+				element.click();
+			} else {
+				flag = 0;
+			}
+			return flag;
+		} catch (Exception ex) {
+			return 0;
 		}
 	}
 
@@ -117,42 +169,12 @@ public class WebDriverFactory extends TestBase {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (fieldname != null && fieldvalue != null) {
-			element = findElement(fieldname, type);
-			element.clear();
-			element.sendKeys(fieldvalue);
-			}
-			else
-			{
-				flag = 0;
-			}
-			/*if (fieldname != null && fieldvalue != null) {
-				
-				if (type.equalsIgnoreCase("name")) {
-
-					getDriver().findElement(By.name(fieldname)).clear();
-					getDriver().findElement(By.name(fieldname)).sendKeys(
-							fieldvalue);
-					flag = 1;
-				} else if (type.equalsIgnoreCase("xpath")) {
-
-					getDriver().findElement(By.xpath(fieldname)).clear();
-					getDriver().findElement(By.xpath(fieldname)).sendKeys(
-							fieldvalue);
-					flag = 1;
-
-				} else {
-
-					getDriver().findElement(By.id(fieldname)).clear();
-					getDriver().findElement(By.id(fieldname)).sendKeys(
-							fieldvalue);
-					flag = 1;
-
-				}
-
+				element = findElement(fieldname, type);
+				element.clear();
+				element.sendKeys(fieldvalue);
 			} else {
 				flag = 0;
-			}*/
-
+			}
 			return flag;
 		} catch (Exception ex) {
 			return 0;
@@ -167,15 +189,13 @@ public class WebDriverFactory extends TestBase {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (fieldname != null && type != null) {
-			element = findElement(fieldname, type);
-			element.clear();
-			element.sendKeys(fieldname);
+				element = findElement(fieldname, type);
+				element.clear();
+				element.sendKeys(fieldname);
+			} else {
+				flag = 0;
 			}
-			else {
-				flag=0;
-			}
-			
-			
+
 			if (fieldname != null && type != null) {
 				if (type.equalsIgnoreCase("name")) {
 					getDriver().findElement(By.name(fieldname)).sendKeys("\n");
@@ -315,113 +335,6 @@ public class WebDriverFactory extends TestBase {
 			} else {
 				flag = 0;
 			}
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-	}
-
-	/*
-	 * Function for clicking a link, button or radio button Created by: - Date:-
-	 */
-	public int click(String objectclicked, String type) {
-		try {
-			if (objectclicked != null) {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			System.out.println(element);
-			element = findElement(objectclicked, type);
-			element.click();
-			}
-			else
-			{
-				flag = 0;
-			}
-			/*if (objectclicked != null) {
-				if ("css".equalsIgnoreCase(type)) {
-					if (getDriver().findElement(By.cssSelector(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.cssSelector(objectclicked))
-								.click();
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-
-				} else if ("link".equalsIgnoreCase(type)) {
-					System.out.println("driver\n" + getDriver());
-					if (getDriver().findElement(By.linkText(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.linkText(objectclicked))
-								.click();
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-				} else if ("type".equalsIgnoreCase(type)) {
-					if (getDriver().findElement(By.tagName("type"))
-							.isDisplayed()) {
-						getDriver().findElement(By.linkText(objectclicked))
-								.click();
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-				} else if ("id".equalsIgnoreCase(type)) {
-					if (getDriver().findElement(By.id(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.id(objectclicked)).click();
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-				} else if ("name".equalsIgnoreCase(type)) {
-
-					if (getDriver().findElement(By.name(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.name(objectclicked)).click();
-						flag = 1;
-					} else {
-						flag = 0;
-
-					}
-				}
-
-				else if ("value".equalsIgnoreCase(type)) {
-
-					if (getDriver().findElement(By.name(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.name(objectclicked)).click();
-						flag = 1;
-					} else {
-						flag = 0;
-
-					}
-				}
-
-				else if ("label".equalsIgnoreCase(type)) {
-
-					if (getDriver().findElement(By.name(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.name(objectclicked)).click();
-						flag = 1;
-					} else {
-						flag = 0;
-
-					}
-				} else {
-					// System.out.println("dsssssssss:  :"+driver.findElement(By.name(objectclicked)));
-					if (getDriver().findElement(By.xpath(objectclicked))
-							.isEnabled()) {
-						getDriver().findElement(By.xpath(objectclicked))
-								.click();
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-				}
-				return flag;
-			} else
-				flag = 0;*/
 			return flag;
 		} catch (Exception ex) {
 			return 0;
