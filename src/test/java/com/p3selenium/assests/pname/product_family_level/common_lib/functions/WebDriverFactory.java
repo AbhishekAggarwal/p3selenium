@@ -144,11 +144,11 @@ public class WebDriverFactory extends TestBase {
 	/*
 	 * Function for clicking a link, button or radio button
 	 * 
-	 * @param 
+	 * @param
 	 * 
 	 * @return int
 	 */
-	//public int click(String objectclicked, String type) {
+	// public int click(String objectclicked, String type) {
 	public int click(String element_name, String element_type) {
 		try {
 			if (element_name != null) {
@@ -165,6 +165,11 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
+	/*
+	 * @Type custom
+	 * 
+	 * Use to type text in the field
+	 */
 	public int typeText(String fieldname, String fieldvalue, String type) {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
@@ -183,72 +188,69 @@ public class WebDriverFactory extends TestBase {
 	}
 
 	/*
-	 * Function for pressing enter in text boxes Created by: -
+	 * @Type custom
+	 * 
+	 * Use to pressing enter in text boxes
 	 */
-	public int pressEnter(String fieldname, String type) {
+	public int pressEnter(String element_name, String element_type) {
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
-			if (fieldname != null && type != null) {
-				element = findElement(fieldname, type);
-				element.clear();
-				element.sendKeys(fieldname);
+			if (element_name != null) {
+				// Thread.sleep(Constants.DeltaConstants.time);
+				System.out.println(element);
+				element = findElement(element_name, element_type);
+				element.sendKeys("\n");
+				// getDriver().findElement(By.name(fieldname)).sendKeys("\n");
 			} else {
 				flag = 0;
 			}
-
-			if (fieldname != null && type != null) {
-				if (type.equalsIgnoreCase("name")) {
-					getDriver().findElement(By.name(fieldname)).sendKeys("\n");
-					flag = 1;
-				} else if (type.equalsIgnoreCase("xpath")) {
-					getDriver().findElement(By.xpath(fieldname)).sendKeys("\n");
-					flag = 1;
-
-				}
-
-			} else {
-				flag = 0;
-			}
-
+			return flag;
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			return 0;
 		}
-		return flag;
-
 	}
 
-	// Created By
+	/*
+	 * @Type custom
+	 * 
+	 * Use to clear text of the fields
+	 */
+	public int clear(String element_name, String fieldvalue, String element_type) {
 
-	public int clearText(String fieldname, String fieldvalue, String type) {
 		try {
 			// ////Thread.sleep(Constants.DeltaConstants.mintime);
-			if (fieldname != null && fieldvalue != null) {
-				if (type.equalsIgnoreCase("name")) {
-
-					getDriver().findElement(By.name(fieldname)).clear();
-					getDriver().findElement(By.name(fieldname)).sendKeys("");
-					flag = 1;
-				} else if (type.equalsIgnoreCase("xpath")) {
-
-					getDriver().findElement(By.xpath(fieldname)).clear();
-					getDriver().findElement(By.xpath(fieldname)).sendKeys("");
-					flag = 1;
-
-				}
-
-				else if (type.equalsIgnoreCase("id")) {
-
-					getDriver().findElement(By.id(fieldname)).clear();
-					getDriver().findElement(By.id(fieldname)).sendKeys("");
-					flag = 1;
-
-				}
+			if (element_name != null && fieldvalue != null) {
+				element = findElement(element_name, element_type);
+				element.clear();
+				element.sendKeys("");
 
 			} else {
 				flag = 0;
 			}
+			return flag;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
 
+	/*
+	 * @Type custom
+	 * 
+	 * Function for verifying text field value
+	 */
+	public int verifyText(String element_name, String element_type,
+			String fieldvalue) {
+		try {
+			// ////Thread.sleep(Constants.DeltaConstants.mintime);
+			if (element_name != null && fieldvalue != null) {
+				element = findElement(element_name, element_type);
+				if (element.getAttribute("value").equalsIgnoreCase(fieldvalue)) {
+					flag = 1;
+				} else {
+					flag = 0;
+				}
+			} else {
+				flag = 0;
+			}
 			return flag;
 		} catch (Exception ex) {
 			return 0;
@@ -257,81 +259,16 @@ public class WebDriverFactory extends TestBase {
 	}
 
 	/*
-	 * Function for verifying text field value Created by: - Date:-
+	 * 
+	 * Function to check element is displayed or not
 	 */
-	public int verifyText(String fieldname, String type, String fieldvalue) {
+	public int isDisplayed(String element_name, String element_type) {
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
-			if (fieldname != null && fieldvalue != null) {
-				if (type.equalsIgnoreCase("name")) {
-					if (getDriver().findElement(By.name(fieldname))
-							.getAttribute("value").equalsIgnoreCase(fieldvalue)) {
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-
-				} else {
-					if (getDriver().findElement(By.id(fieldname))
-							.getAttribute("value").equalsIgnoreCase(fieldvalue)) {
-						flag = 1;
-					} else {
-						flag = 0;
-					}
-				}
-
-				return flag;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-	}
-
-	// created By
-
-	public int verify(String fieldname, String type) {
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			if (fieldname != null && type != null) {
-				if (type.equalsIgnoreCase("xpath")) {
-					if (getDriver().findElement(By.xpath(fieldname))
-							.isDisplayed()) {
-						flag = 1;
-					}
-
-				} else if (type.equalsIgnoreCase("name")) {
-					if (getDriver().findElement(By.name(fieldname))
-							.isDisplayed()) {
-						flag = 1;
-					}
-
-				} else {
-					flag = 0;
-				}
-				return flag;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-
-	}
-
-	public int verifyLinkText(String LinkText) {
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			if (LinkText != null) {
-
-				if (getDriver().findElement(By.linkText(LinkText))
-						.isDisplayed()) {
-					flag = 1;
-				} else {
-					flag = 0;
-				}
-
+			if (element_name != null) {
+				// Thread.sleep(Constants.DeltaConstants.time);
+				System.out.println(element);
+				element = findElement(element_name, element_type);
+				element.isDisplayed();
 			} else {
 				flag = 0;
 			}
@@ -339,7 +276,9 @@ public class WebDriverFactory extends TestBase {
 		} catch (Exception ex) {
 			return 0;
 		}
+
 	}
+
 
 	// to check that enable functionality---shivi
 
@@ -406,6 +345,30 @@ public class WebDriverFactory extends TestBase {
 			return 0;
 		}
 	}
+	
+	
+	/*public int verifyLinkText(String LinkText) {
+		try {
+			// Thread.sleep(Constants.DeltaConstants.time);
+			if (LinkText != null) {
+
+				if (getDriver().findElement(By.linkText(LinkText))
+						.isDisplayed()) {
+					flag = 1;
+				} else {
+					flag = 0;
+				}
+
+			} else {
+				flag = 0;
+			}
+			return flag;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}*/
+
+
 
 	/*
 	 * Function for double clicking a link, button or radio button Created by: -
