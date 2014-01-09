@@ -31,10 +31,10 @@ public class TestBase extends Bean {
 	@Parameters({ "browser" })
 	@BeforeClass
 	public WebDriver init(String browser) throws MalformedURLException {
-		String url=LoadProperty.getVar("data.url");	
-		System.out.println("url"+url);
+		String url = LoadProperty.getVar("data.url");
+		System.out.println("url" + url);
 		test_name = this.getClass().getSimpleName();
-		System.out.println("Starting Test Name: \t"+test_name);
+		System.out.println("Starting Test Name: \t" + test_name);
 		if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.firefox.driver",
 					"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
@@ -71,10 +71,11 @@ public class TestBase extends Bean {
 	@AfterMethod
 	@AfterClass
 	public void tearDown() {
-		System.out.println("Ending Test Name: \t"+test_name);
-		System.out.println("Shuting down driver of Test Name: \t"+test_name);
+		System.out.println("Ending Test Name: \t" + test_name);
+		System.out.println("Shuting down driver of Test Name: \t" + test_name);
 		driver.quit();
-		System.out.println("Test Name : \t"+test_name+"\t:executed successfully");
+		System.out.println("Test Name : \t" + test_name
+				+ "\t:executed successfully");
 	}
 
 	public WebDriver getDriver() {
@@ -88,7 +89,10 @@ public class TestBase extends Bean {
 	@AfterSuite(alwaysRun = true)
 	public void tearDownAfterSuit() {
 		if (driver != null) {
-			System.out.println("Driver of Test name: "+test_name+" is closing at the end of suit, means this script did not worked properly");
+			System.out
+					.println("Driver of Test name: "
+							+ test_name
+							+ " is closing at the end of suit, means this script did not worked properly");
 			driver.quit();
 		}
 	}
