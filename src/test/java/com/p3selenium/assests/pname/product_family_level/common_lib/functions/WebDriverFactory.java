@@ -2,59 +2,16 @@ package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.Point;
-import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-//import com.configuration.com.TestBase;
-
 public class WebDriverFactory extends TestBase {
-	/*
-	 * private Connection conn = null; private Statement stmt; private ResultSet
-	 * rset = null; private ResultSet rset_ocs = null; private String Item[];
-	 * private Statement xlStmt = null; private Connection xlCon = null; private
-	 * ResultSet xlRset = null; private String sessionID; private String
-	 * baseUrl; private static WebDriverWait wait; private JavascriptExecutor
-	 * js;
-	 */
-
 	private int flag = 0;
-
-	private Long splittedText;
-	private String originalWindowHandle;
-	private WebDriverBackedSelenium selenium;
-
-	/*
-	 * private String element_name; private String element_type;
-	 */
 	private WebElement element;
 
-	// WebDriver driver=null;
-	// TestBase testbase=new TestBase();
-	// WebDriver driver=new WebDriver();
-
 	/*
-	 * // Set execution speed (i.e., set the millisecond length of a delay which
-	 * will follow each selenium operation). public void setSpeed(String msec) {
-	 * if (!(msec.equals(null))) { selenium.setSpeed(msec); } }
-	 */
-
-	/*
-	 * WebElement onElement=
-	 * getDriver().findElement(By.xpath(Aynax_Constants.DeltaConstants.icon5));
-	 * System.out.println("Tooltip : " + onElement.getAttribute("title"));
-	 */
-
-	/*
-	 * Details of methods will go here Methods that we have in WebDriverFatory
-	 * are as follows 1. findElement(String element_name, String
-	 * element_type):Webelement
-	 */
-
-	/*
-	 * find the element on page
+	 * This method is used to find the element on the page
 	 * 
 	 * @param element_name , element_type
 	 * 
@@ -123,17 +80,19 @@ public class WebDriverFactory extends TestBase {
 	}
 
 	/*
-	 * Use to clear text of the fields
+	 * Use to clear text in a field
+	 * 
+	 * @param element_name, element_type , value
+	 * 
+	 * @return int
 	 */
-	public int clear(String element_name, String fieldvalue, String element_type) {
+	public int clear(String element_name, String value, String element_type) {
 
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
-			if (element_name != null && fieldvalue != null) {
+			if (element_name != null && value != null) {
 				element = findElement(element_name, element_type);
 				element.clear();
-				element.sendKeys("");
-
+				// element.sendKeys("");
 			} else {
 				flag = 0;
 			}
@@ -153,7 +112,6 @@ public class WebDriverFactory extends TestBase {
 	public int click(String element_name, String element_type) {
 		try {
 			if (element_name != null) {
-				// Thread.sleep(Constants.DeltaConstants.time);
 				System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.click();
@@ -166,35 +124,47 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
+	/*
+	 * Method to get attribute of an element
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return String
+	 */
 	public String getAttribute(String element_name, String element_type,
-			String attrName) throws Exception {
-		String ss = null;
+			String attribute) throws Exception {
+		String value = null;
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
-			if (element_name != null && attrName != null) {
+			if (element_name != null && attribute != null) {
 				element = findElement(element_name, element_type);
-				element.getAttribute(attrName);
+				value = element.getAttribute(attribute);
 			} else {
 			}
-			return ss;
+			return value;
 		} catch (Exception ex) {
-			return ss;
+			return value;
 		}
 	}
 
+	/*
+	 * Method to get attribute of an element
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return String
+	 */
 	public String getCssValue(String element_name, String element_type,
-			String attrName) throws Exception {
-		String ss = null;
+			String attribute) throws Exception {
+		String str = null;
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
-			if (element_name != null && attrName != null) {
+			if (element_name != null && attribute != null) {
 				element = findElement(element_name, element_type);
-				ss = element.getCssValue(attrName);
+				str = element.getCssValue(attribute);
 			} else {
 			}
-			return ss;
+			return str;
 		} catch (Exception ex) {
-			return ss;
+			return str;
 		}
 
 	}
@@ -220,7 +190,6 @@ public class WebDriverFactory extends TestBase {
 			throws Exception {
 		Dimension dimension = null;
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (element_name != null) {
 				element = findElement(element_name, element_type);
 				dimension = element.getSize();
@@ -236,7 +205,6 @@ public class WebDriverFactory extends TestBase {
 			throws Exception {
 		String tag = null;
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (element_name != null) {
 				element = findElement(element_name, element_type);
 				tag = element.getTagName();
@@ -264,8 +232,11 @@ public class WebDriverFactory extends TestBase {
 	}
 
 	/*
-	 * 
 	 * Function to check element is displayed or not
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return int
 	 */
 	public int isDisplayed(String element_name, String element_type) {
 		try {
@@ -286,6 +257,10 @@ public class WebDriverFactory extends TestBase {
 
 	/*
 	 * To check that field is enabled or not
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return int
 	 */
 
 	public int isEnabled(String element_name, String element_type) {
@@ -322,95 +297,14 @@ public class WebDriverFactory extends TestBase {
 
 	/*----------------------------------------------------------------------------*/
 
-	/*
-	 * public int verifyLinkText(String LinkText) { try { //
-	 * Thread.sleep(Constants.DeltaConstants.time); if (LinkText != null) {
-	 * 
-	 * if (getDriver().findElement(By.linkText(LinkText)) .isDisplayed()) { flag
-	 * = 1; } else { flag = 0; }
-	 * 
-	 * } else { flag = 0; } return flag; } catch (Exception ex) { return 0; } }
-	 */
+	/*-------------------------------------Custom Methods Starts---------------------------------------*/
 
 	/*
+	 * Method to perform Mouse Over an element
 	 * 
-	 * public int doubleClick(String objectclicked) { try { //
-	 * Thread.sleep(Constants.DeltaConstants.time); if (objectclicked != null) {
-	 * if (getDriver().findElement(By.cssSelector(objectclicked)) .isEnabled())
-	 * { Actions action = new Actions(getDriver());
-	 * action.doubleClick(getDriver().findElement(
-	 * By.cssSelector(objectclicked))); action.perform(); flag = 1; } else {
-	 * flag = 0; } return flag; } else flag = 0; return flag; } catch (Exception
-	 * ex) { return 0; } }
+	 * @return int
 	 * 
-	 * 
-	 * 
-	 * Function for setting state of checkbox Created by: - Date:-
-	 * 
-	 * public int check(String objectchecked, String type) { try { //
-	 * Thread.sleep(Constants.DeltaConstants.time); if (objectchecked != null) {
-	 * if (type.equalsIgnoreCase("id")) { if
-	 * (getDriver().findElement(By.id(objectchecked)) .isEnabled()) {
-	 * getDriver().findElement(By.id(objectchecked)).click(); boolean checked =
-	 * getDriver().findElement( By.id(objectchecked)).isSelected(); if (checked)
-	 * { flag = 1; } else { flag = 0; } } else { flag = 0; } } else { if
-	 * (getDriver().findElement(By.name(objectchecked)) .isEnabled()) {
-	 * getDriver().findElement(By.name(objectchecked)).click(); boolean checked
-	 * = getDriver().findElement( By.name(objectchecked)).isSelected(); if
-	 * (checked) { flag = 1; } else { flag = 0; } } else { flag = 0; }
-	 * 
-	 * } return flag; } else flag = 0; return flag; } catch (Exception ex) {
-	 * return 0; } }
-	 * 
-	 * 
-	 * Function to verify whether check box/ Radio button is ON
-	 * 
-	 * public int isChecked(String objectchecked, String type) { try { //
-	 * ////Thread.sleep(Constants.DeltaConstants.mintime); if (objectchecked !=
-	 * null) {
-	 * 
-	 * if (type.equalsIgnoreCase("id")) { if
-	 * (getDriver().findElement(By.id(objectchecked)) .isEnabled()) { boolean
-	 * checked = getDriver().findElement( By.id(objectchecked)).isSelected(); if
-	 * (checked) { flag = 1; } else { flag = 0; }
-	 * 
-	 * } else flag = 0; }
-	 * 
-	 * else if (type.equalsIgnoreCase("xpath")) { if
-	 * (getDriver().findElement(By.xpath(objectchecked)) .isEnabled()) { boolean
-	 * checked = getDriver().findElement( By.xpath(objectchecked)).isSelected();
-	 * if (checked) { flag = 1; } else { flag = 0; }
-	 * 
-	 * } else flag = 0; } else { if
-	 * (getDriver().findElement(By.name(objectchecked)) .isEnabled()) { boolean
-	 * checked = getDriver().findElement( By.name(objectchecked)).isSelected();
-	 * if (checked) { flag = 1; } else { flag = 0; }
-	 * 
-	 * } else flag = 0; }
-	 * 
-	 * } return flag; } catch (Exception ex) { return 0; } }
-	 * 
-	 * 
-	 * Function to verify whether check box/ Radio button is ON by name
-	 * 
-	 * public int isCheckedbyname(String objectchecked) { try { //
-	 * ////Thread.sleep(Constants.DeltaConstants.mintime); if (objectchecked !=
-	 * null) { if (getDriver().findElement(By.name(objectchecked)).isEnabled())
-	 * { getDriver().findElement(By.name(objectchecked)).click(); boolean
-	 * checked = getDriver().findElement( By.name(objectchecked)).isSelected();
-	 * if (checked) { flag = 1; } else { flag = 0; }
-	 * 
-	 * } else flag = 0;
-	 * 
-	 * } return flag; } catch (Exception ex) { return 0; } }
-	 */
-	/*
-	 * -----------------------------------Custom
-	 * Methods-------------------------
-	 */
-
-	/*
-	 * Function to perform Mouse Over
+	 * @param element_name, element_type
 	 */
 	public int mouseOver(String element_name, String element_type) {
 		try {
@@ -419,22 +313,22 @@ public class WebDriverFactory extends TestBase {
 				element = findElement(element_name, element_type);
 				Actions builder = new Actions(getDriver());
 				builder.moveToElement(element).perform();
-
-				return flag;
+				flag = 1;
 			} else {
 				flag = 0;
-
-				return flag;
 			}
+			return flag;
 		} catch (Exception ex) {
 			return 0;
 		}
 	}
 
-	/*
-	 * @Type custom
-	 * 
+	/* 
 	 * Use to type text in the field
+	 * 
+	 * @return int
+	 * 
+	 * @param element_name, element_type
 	 */
 	public int typeText(String fieldname, String fieldvalue, String type) {
 		try {
@@ -443,6 +337,7 @@ public class WebDriverFactory extends TestBase {
 				element = findElement(fieldname, type);
 				element.clear();
 				element.sendKeys(fieldvalue);
+				flag = 1;
 			} else {
 				flag = 0;
 			}
@@ -531,65 +426,5 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
-	public boolean isAlertPresent() {
-		try {
-			getDriver().switchTo().alert();
-			return true;
-		} // try
-		catch (NoAlertPresentException Ex) {
-			return false;
-		}
-	}
-
-	/* Extra */
-	/*
-	 * public String getRequiredCellValueByColumnValue(String tableId, String
-	 * columnValue, int columnIndex, int requiredIndex) { String requiredValue =
-	 * null; WebElement baseTable = getDriver().findElement(By.id(tableId));
-	 * List<WebElement> tableRows = baseTable.findElements(By.tagName("tr"));
-	 * System.out.println("size " + tableRows.size());
-	 * 
-	 * for (int i = 1; i < tableRows.size() - 1; i++) { WebElement row =
-	 * tableRows.get(i); String colValue = row.findElement( By.xpath("td[" +
-	 * columnIndex + "]")).getText(); System.out.println(colValue); if
-	 * (colValue.equalsIgnoreCase(columnValue)) { requiredValue =
-	 * row.findElement( By.xpath("td[" + requiredIndex + "]")).getText(); break;
-	 * 
-	 * } }
-	 * 
-	 * return requiredValue; }
-	 * 
-	 * 
-	 * 
-	 * public List getTableValue(String tableid, int column) { List cells_text =
-	 * new ArrayList(); WebElement baseTable =
-	 * getDriver().findElement(By.id("dataTable")); List<WebElement> tableRows =
-	 * baseTable.findElements(By.tagName("tr")); for (WebElement row :
-	 * tableRows) { // List<WebElement> cells =
-	 * row.findElements(By.xpath("./*")); System.out.println(column); //
-	 * List<WebElement> cells = //
-	 * row.findElements(By.tagName("td["+column+"]"));
-	 * 
-	 * // for (WebElement cell : cells) { // And so on //
-	 * System.out.print(cell.getText() +" || ");
-	 * cells_text.add(row.findElement(By.xpath("td[" + column + "]"))
-	 * .getText()); System.out.println("Cell: " + cells_text); // } //
-	 * System.out.println(""); // System.out.println(tableRows); //
-	 * System.out.println(tableRows.get(index).getText()); } return cells_text;
-	 * }
-	 * 
-	 * 
-	 * public boolean validateTax(double totalamount, double tax1, double tax2,
-	 * double a, double b) {
-	 * 
-	 * double tax1_calc = (totalamount * tax1) / 100; double tax2_calc =
-	 * (totalamount * tax2) / 100;
-	 * 
-	 * if (!(tax1_calc == a) || !(tax2_calc == b)) { return true; } return
-	 * false; }
-	 * 
-	 * public String getTitle() { String title = getDriver().getTitle(); return
-	 * title; }
-	 */
-
+	/*-------------------------------------Custom Methods Ends---------------------------------------*/
 }

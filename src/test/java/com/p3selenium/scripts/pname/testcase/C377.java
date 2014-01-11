@@ -11,13 +11,13 @@ public class C377 extends TestBase {
 	@Test
 	public void testLink() throws Exception {
 		System.out.println("Starting Script C377");
-		WebDriverFactory wdFunc = new WebDriverFactory();
-		wdFunc.setDriver(this.getDriver());
+		WebDriverFactory wdf = new WebDriverFactory();
+		wdf.setDriver(this.getDriver());
 		getDriver().get(Aynax_Constants.DeltaConstants.url);
 		Login login = new Login();
 		// login.login(wdFunc, Aynax_Constants.DeltaConstants.ab_uname,
 		// Aynax_Constants.DeltaConstants.ab_upassword);
-		login.login(wdFunc, "testingmember30@gmail.com", "123456");
+		login.login(wdf, "testingmember30@gmail.com", "123456");
 /*
 		getDriver().findElement(By.id("headlineButton")).click();
 		// /Thread.sleep(3000);

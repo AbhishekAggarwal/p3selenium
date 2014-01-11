@@ -8,6 +8,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
@@ -26,10 +27,10 @@ public class UtilityFactory extends TestBase {
 	private int flag = 0; // Indicator of pass/ fail i.e. if flag=1
 	private String s_flag = null;
 
-
 	private Long splittedText;
 	private String originalWindowHandle;
 	private WebDriverBackedSelenium selenium;
+
 	/*
 	 * This method is used for fetching fields in the table. And returns the
 	 * result in the form of List
@@ -70,11 +71,6 @@ public class UtilityFactory extends TestBase {
 		return pdfData;
 
 	}
-
-	
-	
-	
-	
 
 	/*
 	 * Function for waiting on a page Created by: - Date :-
@@ -490,7 +486,6 @@ public class UtilityFactory extends TestBase {
 	}
 
 	public void clearField(String objectclicked, String type) {
-
 		if (objectclicked != null) {
 			if ("id".equalsIgnoreCase(type)) {
 				if (getDriver().findElement(By.id(objectclicked)).isEnabled()) {
@@ -509,11 +504,20 @@ public class UtilityFactory extends TestBase {
 
 	}
 
+	public boolean isAlertPresent() {
+		try {
+			getDriver().switchTo().alert();
+			return true;
+		} // try
+		catch (NoAlertPresentException Ex) {
+			return false;
+		}
+	}
 
 	public void openURL() {
 		getDriver().get(("https://qa.aynax.com/login.php"));
 	}
-	
+
 	
 	
 }
