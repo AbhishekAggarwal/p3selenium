@@ -332,7 +332,6 @@ public class WebDriverFactory extends TestBase {
 	 */
 	public int typeText(String fieldname, String fieldvalue, String type) {
 		try {
-			// ////Thread.sleep(Constants.DeltaConstants.mintime);
 			if (fieldname != null && fieldvalue != null) {
 				element = findElement(fieldname, type);
 				element.clear();
