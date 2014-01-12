@@ -3,17 +3,19 @@ package com.p3selenium.scripts.pname.testcase;
 import org.testng.annotations.Test;
 
 import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.Aynax_Constants;
+import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.LoadProperty;
 import com.p3selenium.assests.pname.product_family_level.common_lib.functions.TestBase;
 import com.p3selenium.assests.pname.product_family_level.common_lib.functions.WebDriverFactory;
 import com.p3selenium.assests.pname.product_family_level.common_lib.scripts.Login;
 
-public class C377 extends TestBase {
+public class TestScript extends TestBase {
 	@Test
 	public void testLink() throws Exception {
+		String url = LoadProperty.getVar("data.url");
 		System.out.println("Starting Script C377");
 		WebDriverFactory wdf = new WebDriverFactory();
 		wdf.setDriver(this.getDriver());
-		getDriver().get(Aynax_Constants.DeltaConstants.url);
+		getDriver().get(url);
 		Login login = new Login();
 		// login.login(wdFunc, Aynax_Constants.DeltaConstants.ab_uname,
 		// Aynax_Constants.DeltaConstants.ab_upassword);

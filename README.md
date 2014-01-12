@@ -1,3 +1,5 @@
+NOTE: The Project is under development. The first version will be released on 17th Feb, 2014
+
 P3selenium
 ==========
 
