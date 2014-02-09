@@ -11,11 +11,11 @@ public class TestScript extends TestBase {
 	@Test
 	public void testLink() throws Exception {
 		String url = LoadProperty.getVar("data.url");
-		System.out.println("Starting Script C377");
+		System.out.println("Started script 'TestScript'");
 		WebDriverFactory wdf = new WebDriverFactory();
 		wdf.setDriver(this.getDriver());
 		getDriver().get(url);
-		Library library= new Library();
-		library.login(wdf, "testingmember30@gmail.com", "123456");
+		//Library library= new Library();
+		//library.login(wdf, "testingmember30@gmail.com", "123456");
 	}
 }

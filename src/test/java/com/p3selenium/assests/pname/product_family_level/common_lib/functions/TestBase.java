@@ -24,6 +24,8 @@ public class TestBase extends Bean {
 
 	private DesiredCapabilities capability = null;
 	String test_name = null;
+	String username = System.getProperty("user.name");
+	String project_path= System.getProperty("user.dir");
 
 	// private String project_root = System.getProperty("user.dir");
 	// private LoadProperty property = null;
@@ -32,9 +34,9 @@ public class TestBase extends Bean {
 	@BeforeClass
 	public WebDriver init(String browser) throws MalformedURLException {
 		String url = LoadProperty.getVar("data.url");
-		System.out.println("url" + url);
+		System.out.println("url:\t" + url);
 		test_name = this.getClass().getSimpleName();
-		System.out.println("Starting Test Name: \t" + test_name);
+		System.out.println("Starting Test Name: \t'" + test_name+"'");
 		if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.firefox.driver",
 					"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
@@ -47,7 +49,7 @@ public class TestBase extends Bean {
 		else if (browser.equalsIgnoreCase("iexplore")) {
 			System.out.println("iexplore");
 			capability = DesiredCapabilities.internetExplorer();
-			System.setProperty("webdriver.ie.driver", "C:\\IEDriverServer.exe");
+			System.setProperty("webdriver.ie.driver", project_path+"\\src\\test\\resources\\driver\\IEDriverServer.exe");
 			capability.setBrowserName(browser);
 			capability.setPlatform(org.openqa.selenium.Platform.WINDOWS);
 			setDriver(new InternetExplorerDriver(capability));
@@ -55,8 +57,11 @@ public class TestBase extends Bean {
 
 		else if (browser.equalsIgnoreCase("chrome")) {
 			capability = DesiredCapabilities.chrome();
+			/*System.setProperty("webdriver.chrome.driver",
+					"C:\\chromedriver2.8.exe");*/
 			System.setProperty("webdriver.chrome.driver",
-					"C:\\chromedriver.exe");
+					project_path+"\\src\\test\\resources\\driver\\chromedriver_v32.exe");
+			
 			// prompt_for_download
 			capability.setBrowserName(browser);
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);

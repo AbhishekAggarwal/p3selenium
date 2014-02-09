@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite" parallel="false">
-	<parameter name="browser" value="chrome">
+	<parameter name="browser" value="iexplore">
 		<test name="Test">
 			<classes>
-				<class name="com.p3selenium.scripts.pname.testcase.C377" />
-				
+				<class name="com.p3selenium.scripts.pname.testcase.TestScript" />
 			</classes>
 		</test> <!-- Test -->
 	</parameter>
