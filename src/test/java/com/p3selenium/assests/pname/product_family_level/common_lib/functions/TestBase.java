@@ -100,6 +100,7 @@ public class TestBase extends Bean {
 							+ " is closing at the end of suit, means this script did not worked properly");
 			driver.quit();
 		}
+		//send email code
 	}
 
 }
