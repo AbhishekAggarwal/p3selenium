@@ -1,7 +1,12 @@
 package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.openqa.selenium.Alert;
@@ -30,6 +35,9 @@ public class UtilityFactory extends TestBase {
 	private Long splittedText;
 	private String originalWindowHandle;
 	private WebDriverBackedSelenium selenium;
+
+	private String user;
+	private List<String> al1 = null;
 
 	/*
 	 * This method is used for fetching fields in the table. And returns the
@@ -73,7 +81,7 @@ public class UtilityFactory extends TestBase {
 	}
 
 	/*
-	 * Function for waiting on a page Created by: - Date :-
+	 * Function for waiting on a page
 	 */
 	public int waitForPageToLoad(String msec) {
 		try {
@@ -126,17 +134,15 @@ public class UtilityFactory extends TestBase {
 			String value = (String) ((JavascriptExecutor) getDriver())
 					.executeScript("return window.name;");
 			if (value == null) {
-				// We found it!
 				return;
 			}
 		}
-		// We couldn't find it
 		getDriver().switchTo().window(current);
 		throw new SeleniumException("Unable to select window _blank");
 	}
 
 	/*
-	 * Function for selecting a window Created by: - Date :- 17th Oct 2011
+	 * Function for selecting a window
 	 */
 
 	public void selectWindow(String windowID) {
@@ -191,7 +197,6 @@ public class UtilityFactory extends TestBase {
 
 	/*
 	 * Function for selection value from drop down list or combo box Created
-	 * by:- Date :-
 	 */
 
 	// String
@@ -228,8 +233,6 @@ public class UtilityFactory extends TestBase {
 		}
 	}
 
-	// Created By
-
 	public int selectValueByID(String dropDownID, String dropDownValue) {
 		try {
 			// Thread.sleep(Constants.DeltaConstants.time);
@@ -260,7 +263,6 @@ public class UtilityFactory extends TestBase {
 
 	/*
 	 * Function for verification of value from drop down list or combo box
-	 * Created by: -
 	 */
 	public int verifyValuebyid(String dropDownName, String dropDownValue) {
 		try {
@@ -285,7 +287,6 @@ public class UtilityFactory extends TestBase {
 
 	/*
 	 * Function for selection multiple values from multi-select element Created
-	 * by: -
 	 */
 	public int addSelection(String dropDownName, String dropDownValue) {
 		try {
@@ -302,7 +303,6 @@ public class UtilityFactory extends TestBase {
 		}
 	}
 
-	// Added by
 	/*
 	 * public int compareText(String ActualText, String textverify) { try { //
 	 * Thread.sleep(Constants.DeltaConstants.time); if (ActualText != null) { if
@@ -353,46 +353,10 @@ public class UtilityFactory extends TestBase {
 		return splittedText;
 	}
 
-	public String getElementAttribute(String objectclicked, String type,
-			String value) throws Exception {
-		String ss = null;
-		if (objectclicked != null) {
-			if ("css".equalsIgnoreCase(type)) {
-				if (getDriver().findElement(By.cssSelector(objectclicked))
-						.isEnabled()) {
-					ss = getDriver().findElement(By.cssSelector(objectclicked))
-							.getAttribute(value);
-				}
-			} else if ("link".equalsIgnoreCase(type)) {
-				if (getDriver().findElement(By.linkText(objectclicked))
-						.isEnabled()) {
-					ss = getDriver().findElement(By.linkText(objectclicked))
-							.getAttribute(value);
-				}
-			} else if ("name".equalsIgnoreCase(type)) {
-				if (getDriver().findElement(By.name(objectclicked)).isEnabled()) {
-					ss = getDriver().findElement(By.name(objectclicked))
-							.getAttribute(value);
-				}
-			} else if ("xpath".equalsIgnoreCase(type)) {
-				if (getDriver().findElement(By.xpath(objectclicked))
-						.isEnabled()) {
-					ss = getDriver().findElement(By.xpath(objectclicked))
-							.getAttribute(value);
-				}
-			} else if ("id".equalsIgnoreCase(type)) {
-				if (getDriver().findElement(By.id(objectclicked)).isEnabled()) {
-					ss = getDriver().findElement(By.id(objectclicked))
-							.getAttribute(value);
-				}
-			}
-		}
-		return ss;
-	}
 
 	/*
 	 * Function for checking the existence of an object used as css element by
-	 * calling methods isElementPresent() and isVisible() Created by: - Date:-
+	 * calling methods isElementPresent() and isVisible() 
 	 */
 	public int isCSSElementPresent(String elementverify) {
 		try {
@@ -415,7 +379,7 @@ public class UtilityFactory extends TestBase {
 	}
 
 	/*
-	 * Function for handling alert box Created by: -
+	 * Function for handling alert box
 	 */
 	public int assertEquals(String message) {
 		try {
@@ -445,34 +409,6 @@ public class UtilityFactory extends TestBase {
 			return 0;
 		}
 	}
-
-	/*
-	 * Function for performing DB tasks Created by: - Date:-19th September 2011
-	 * 
-	 * public ResultSet dbTask(String propertyFile, String query) throws
-	 * SQLException { String serverName = ""; String portNumber = ""; String sid
-	 * = ""; String username = ""; String password = "";
-	 * 
-	 * if(rset != null){ rset.close(); }
-	 * 
-	 * if(stmt != null){ stmt.close(); }
-	 * 
-	 * if(conn != null){ conn.close(); }
-	 * 
-	 * if (propertyFile != null && query != null) { try { ResultSet rlset =
-	 * readDBdetails(propertyFile); while (rlset.next()) { serverName =
-	 * rlset.getString("serverName"); portNumber =
-	 * rlset.getString("portNumber"); sid = rlset.getString("sid"); username =
-	 * rlset.getString("username"); password = rlset.getString("password");
-	 * System.out.println(portNumber); } String url = "jdbc:oracle:thin:@" +
-	 * serverName + ":" + portNumber + ":" + sid; DriverManager
-	 * .registerDriver(new oracle.jdbc.driver.OracleDriver()); conn =
-	 * DriverManager.getConnection(url, username, password);
-	 * //conn.setAutoCommit(false); stmt = conn.createStatement(); rset =
-	 * stmt.executeQuery(query); System.out.println("rset :"+rset); return rset;
-	 * } catch (Exception e) { e.printStackTrace(); } } else rset = null; return
-	 * rset; }
-	 */
 	// Function for reading Test data from excel sheet testcases_driver
 
 	public String getToolTipText(String elementXPath, WebDriver wDriver) {
@@ -518,6 +454,52 @@ public class UtilityFactory extends TestBase {
 		getDriver().get(("https://qa.aynax.com/login.php"));
 	}
 
-	
-	
+	public String fetchDataFromCSV() {
+		try {
+			String path = System.getProperty("user.dir");
+			path = path + "\\src\\test\\java\\csv\\users.csv";
+			System.out.println(path);
+			al1 = new ArrayList<String>();
+
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			String userData = br.readLine();
+			while (userData != null) {
+				String userArray[] = userData.split(",");
+				for (String item1 : userArray) {
+					al1.add(item1);
+				}
+				userData = br.readLine();
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		user = al1.get(0);
+		return user;
+	}
+
+	public boolean isThisDateValid(String dateToValidate, String dateFromat) {
+
+		if (dateToValidate == null) {
+			return false;
+		}
+
+		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+		sdf.setLenient(false);
+
+		try {
+
+			// if not valid, it will throw ParseException
+			Date date = sdf.parse(dateToValidate);
+			System.out.println(date);
+
+		} catch (ParseException e) {
+
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
+	}
+
 }
