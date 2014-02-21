@@ -12,13 +12,21 @@ public class LoadProperty {
 
 	static String var = null;
 
-	public static String getVar(String key) {
+	public static String getVar(String key,String file) {
 		Properties props = new Properties();
 		String path = System.getProperty("user.dir");
 		try {
 			// load a properties file
 			path = path + "\\src\\test\\resources\\";
-			props.load(new FileInputStream(path + "data.properties"));
+			if(file=="data")
+			{
+				props.load(new FileInputStream(path + "data.properties"));	
+			}
+			else if (file=="element")
+			{
+				props.load(new FileInputStream(path + "element.properties"));
+			}
+			
 			if (key != null) {
 				var = props.getProperty(key);
 			}

@@ -9,7 +9,7 @@ import com.p3selenium.assests.pname.product_family_level.common_lib.functions.We
 public class TestScript extends TestBase {
 	@Test
 	public void testLink() throws Exception {
-		String url = LoadProperty.getVar("data.url");
+		String url = LoadProperty.getVar("url","data");
 		System.out.println("Started script 'TestScript'");
 		WebDriverFactory wdf = new WebDriverFactory();
 		wdf.setDriver(this.getDriver());

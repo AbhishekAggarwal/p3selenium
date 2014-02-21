@@ -33,7 +33,7 @@ public class TestBase extends Bean {
 	@Parameters({ "browser" })
 	@BeforeClass
 	public WebDriver init(String browser) throws MalformedURLException {
-		String url = LoadProperty.getVar("data.url");
+		String url = LoadProperty.getVar("url","data");
 		System.out.println("url: '" + url + "'");
 		test_name = this.getClass().getSimpleName();
 		System.out.println("Starting Test Name: '" + test_name + "'");
