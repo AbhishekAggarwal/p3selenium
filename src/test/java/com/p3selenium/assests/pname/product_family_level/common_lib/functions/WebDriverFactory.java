@@ -59,8 +59,8 @@ public class WebDriverFactory extends TestBase {
 					.println("------------------------------------------------------------------");
 			System.out
 					.println("Error in WebDriverFactory Class while finding the element on page");
-			System.out.println("Element name was " + element_name
-					+ "which was not found" + "and type was" + element_type);
+			System.out.println("Element name was '" + element_name
+					+ "' which was not found and type was '" + element_type+"'");
 			System.out.println("Below is the Stack Trace");
 			e.printStackTrace();
 			System.out
@@ -112,7 +112,7 @@ public class WebDriverFactory extends TestBase {
 	public int click(String element_name, String element_type) {
 		try {
 			if (element_name != null) {
-				System.out.println(element);
+				//System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.click();
 			} else {
@@ -242,7 +242,7 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				System.out.println(element);
+				//System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.isDisplayed();
 			} else {
@@ -267,7 +267,7 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				System.out.println(element);
+				//System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.isEnabled();
 			} else {
@@ -283,7 +283,7 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				System.out.println(element);
+				//System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.isSelected();
 			} else {
@@ -356,7 +356,7 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				System.out.println(element);
+				//System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.sendKeys("\n");
 				// getDriver().findElement(By.name(fieldname)).sendKeys("\n");

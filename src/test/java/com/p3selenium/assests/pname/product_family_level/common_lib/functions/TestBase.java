@@ -33,10 +33,10 @@ public class TestBase extends Bean {
 	@Parameters({ "browser" })
 	@BeforeClass
 	public WebDriver init(String browser) throws MalformedURLException {
-		String url = LoadProperty.getVar("url","data");
-		System.out.println("url: '" + url + "'");
+		String url = LoadProperty.getVar("url", "data");
+		System.out.println("URL: '" + url + "'");
 		test_name = this.getClass().getSimpleName();
-		System.out.println("Starting Test Name: '" + test_name + "'");
+		System.out.println("Starting Test: '" + test_name + "'");
 		if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.firefox.driver",
 					"C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe");
@@ -65,7 +65,6 @@ public class TestBase extends Bean {
 			System.setProperty("webdriver.chrome.driver", project_path
 					+ "\\src\\test\\resources\\driver\\chromedriver_v32.exe");
 
-			// prompt_for_download
 			capability.setBrowserName(browser);
 			capability.setPlatform(org.openqa.selenium.Platform.ANY);
 			setDriver(new ChromeDriver(capability));
@@ -83,8 +82,7 @@ public class TestBase extends Bean {
 		System.out.println("Shuting down driver of Test Name: '" + test_name
 				+ "'");
 		driver.quit();
-		System.out.println("Test Name : '" + test_name
-				+ "' :executed successfully");
+		System.out.println("Test: '" + test_name + "' :executed successfully");
 	}
 
 	public WebDriver getDriver() {
@@ -104,7 +102,6 @@ public class TestBase extends Bean {
 							+ " is closing at the end of suit, means this script did not worked properly");
 			driver.quit();
 		}
-		// send email code
 	}
 
 }
