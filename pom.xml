@@ -160,7 +160,7 @@
 				<version>1.1</version>
 				<configuration>
 					<!--Setting the output directory -->
-					<outputDir>${project.basedir}/target/site/${pom.artifactId}</outputDir>
+					<outputDir>${project.basedir}/target/site/${project.artifactId}</outputDir>
 					<!--Setting the testNgXslt.showRuntimeTotals flag -->
 					<showRuntimeTotals>true</showRuntimeTotals>
 					<!--Setting the testNgXslt.cssFile parameter. This should be relative 

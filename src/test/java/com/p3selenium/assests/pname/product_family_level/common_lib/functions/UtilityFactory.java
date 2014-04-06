@@ -9,6 +9,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import jxl.format.Colour;
+import jxl.read.biff.BiffException;
+
+import jxl.write.DateFormats;
+import jxl.write.DateTime;
+import jxl.write.Label;
+import jxl.write.WritableCellFormat;
+import jxl.write.WritableFont;
+import jxl.write.WritableSheet;
+import jxl.write.WriteException;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -40,9 +51,68 @@ public class UtilityFactory extends TestBase {
 	private List<String> al1 = null;
 
 	/*
+	 * This method is use to log the data in excel file
+	 */
+	public void logData(WritableSheet sheet, String testcaseName,
+			String testCaseID, String expectedResult, String actualResult,
+			String Status, String Comment, int row)  {
+
+		try{
+		System.out.println("write excel");
+		// Workbook readbook = Workbook.getWorkbook(new
+		// File(path+"\\Report.xls"));
+
+		// Sheet addUser = readbook.getSheet("AddUser");
+
+		WritableFont wfobj = new WritableFont(WritableFont.ARIAL, 12,
+				WritableFont.BOLD);
+		WritableCellFormat cfobj = new WritableCellFormat(wfobj);
+
+		if (Status == "success")
+			cfobj.setBackground(Colour.GREEN);
+		else
+			cfobj.setBackground(Colour.RED);
+
+		cfobj.setWrap(true);
+		Label lblDate = new Label(0, row, testcaseName, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(1, row, testCaseID, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(2, row, expectedResult, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(3, row, testCaseID, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(4, row, expectedResult, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(5, row, actualResult, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(6, row, Status, cfobj);
+		sheet.addCell(lblDate);
+
+		lblDate = new Label(7, row, Comment, cfobj);
+		sheet.addCell(lblDate);
+
+		WritableCellFormat cf1 = new WritableCellFormat(DateFormats.FORMAT9);
+		DateTime dt = new DateTime(3, 1, new Date(), cf1);
+		sheet.addCell(dt);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	/*
 	 * This method is used for fetching fields in the table. And returns the
 	 * result in the form of List
 	 * 
+	 * @param table_id, row_number, column_start, column_end
 	 * 
 	 * @return cells_text
 	 */
@@ -63,7 +133,13 @@ public class UtilityFactory extends TestBase {
 		return cells_text;
 	}
 
-	/* This method is used to read PDF file */
+	/*
+	 * This method is used to read PDF file
+	 * 
+	 * @param pdf_path, page_num
+	 * 
+	 * @return pdfDdata
+	 */
 	public String readPDFData(String pdf_path, int page_num) throws IOException {
 		String pdfData = null;
 		try {
@@ -81,25 +157,42 @@ public class UtilityFactory extends TestBase {
 	}
 
 	/*
-	 * Function for waiting on a page
+	 * Read data from CSV file
+	 * 
+	 * @param
+	 * 
+	 * @return String
 	 */
-	public int waitForPageToLoad(String msec) {
+	public String fetchDataFromCSV() {
 		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			if (msec != null) {
-				selenium.waitForPageToLoad(msec);
-				flag = 1;
-				return flag;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
+			String path = System.getProperty("user.dir");
+			path = path + "\\src\\test\\java\\csv\\users.csv";
+			System.out.println(path);
+			al1 = new ArrayList<String>();
+
+			BufferedReader br = new BufferedReader(new FileReader(path));
+			String userData = br.readLine();
+			while (userData != null) {
+				String userArray[] = userData.split(",");
+				for (String item1 : userArray) {
+					al1.add(item1);
+				}
+				userData = br.readLine();
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		user = al1.get(0);
+		return user;
 	}
 
 	/*
 	 * Function for waiting for a pop up window
+	 * 
+	 * @param windowID, timeout
+	 * 
+	 * @return "current window"
 	 */
 	public void waitForPopUp(final String windowID, String timeout) {
 		final long millis = Long.parseLong(timeout);
@@ -124,6 +217,13 @@ public class UtilityFactory extends TestBase {
 		getDriver().switchTo().window(current);
 	}
 
+	/*
+	 * Function for waiting for a pop up window
+	 * 
+	 * @param
+	 * 
+	 * @return "current window"
+	 */
 	private void selectBlankWindow() {
 		String current = getDriver().getWindowHandle();
 		// Find the first window without a "name" attribute
@@ -144,7 +244,6 @@ public class UtilityFactory extends TestBase {
 	/*
 	 * Function for selecting a window
 	 */
-
 	public void selectWindow(String windowID) {
 		if ("null".equals(windowID)) {
 			getDriver().switchTo().window(originalWindowHandle);
@@ -353,10 +452,9 @@ public class UtilityFactory extends TestBase {
 		return splittedText;
 	}
 
-
 	/*
 	 * Function for checking the existence of an object used as css element by
-	 * calling methods isElementPresent() and isVisible() 
+	 * calling methods isElementPresent() and isVisible()
 	 */
 	public int isCSSElementPresent(String elementverify) {
 		try {
@@ -409,6 +507,7 @@ public class UtilityFactory extends TestBase {
 			return 0;
 		}
 	}
+
 	// Function for reading Test data from excel sheet testcases_driver
 
 	public String getToolTipText(String elementXPath, WebDriver wDriver) {
@@ -450,34 +549,6 @@ public class UtilityFactory extends TestBase {
 		}
 	}
 
-	public void openURL() {
-		getDriver().get(("https://qa.aynax.com/login.php"));
-	}
-
-	public String fetchDataFromCSV() {
-		try {
-			String path = System.getProperty("user.dir");
-			path = path + "\\src\\test\\java\\csv\\users.csv";
-			System.out.println(path);
-			al1 = new ArrayList<String>();
-
-			BufferedReader br = new BufferedReader(new FileReader(path));
-			String userData = br.readLine();
-			while (userData != null) {
-				String userArray[] = userData.split(",");
-				for (String item1 : userArray) {
-					al1.add(item1);
-				}
-				userData = br.readLine();
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		user = al1.get(0);
-		return user;
-	}
-
 	public boolean isThisDateValid(String dateToValidate, String dateFromat) {
 
 		if (dateToValidate == null) {
@@ -500,6 +571,35 @@ public class UtilityFactory extends TestBase {
 		}
 
 		return true;
+	}
+
+	/*
+	 * **********************************************************
+	 * scrap *********************************************************
+	 */
+	public void openURL() {
+		getDriver().get(("https://qa.aynax.com/login.php"));
+	}
+
+	/*
+	 * Function for waiting on a page
+	 * 
+	 * @param msec
+	 * 
+	 * @return int
+	 */
+	public int waitForPageToLoad(String msec) {
+		try {
+			// Thread.sleep(Constants.DeltaConstants.time);
+			if (msec != null) {
+				selenium.waitForPageToLoad(msec);
+				flag = 1;
+			} else
+				flag = 0;
+			return flag;
+		} catch (Exception ex) {
+			return 0;
+		}
 	}
 
 }

@@ -9,6 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 public class WebDriverFactory extends TestBase {
 	private int flag = 0;
 	private WebElement element;
+	private boolean b = false;
 
 	/*
 	 * This method is used to find the element on the page
@@ -60,7 +61,8 @@ public class WebDriverFactory extends TestBase {
 			System.out
 					.println("Error in WebDriverFactory Class while finding the element on page");
 			System.out.println("Element name was '" + element_name
-					+ "' which was not found and type was '" + element_type+"'");
+					+ "' which was not found and type was '" + element_type
+					+ "'");
 			System.out.println("Below is the Stack Trace");
 			e.printStackTrace();
 			System.out
@@ -69,7 +71,7 @@ public class WebDriverFactory extends TestBase {
 			/*
 			 * @Dev: Abhishek
 			 * 
-			 * @Status: Development see and update the exception handling
+			 * @Status: see and update the exception handling
 			 * mechanism. use centralized exception handling ref:
 			 * http://stackoverflow
 			 * .com/questions/6909920/common-centralized-method
@@ -93,6 +95,7 @@ public class WebDriverFactory extends TestBase {
 				element = findElement(element_name, element_type);
 				element.clear();
 				// element.sendKeys("");
+				flag = 1;
 			} else {
 				flag = 0;
 			}
@@ -112,9 +115,10 @@ public class WebDriverFactory extends TestBase {
 	public int click(String element_name, String element_type) {
 		try {
 			if (element_name != null) {
-				//System.out.println(element);
+				// System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.click();
+				flag = 1;
 			} else {
 				flag = 0;
 			}
@@ -186,6 +190,13 @@ public class WebDriverFactory extends TestBase {
 
 	}
 
+	/*
+	 * Function to get dimension of an element
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return dimension
+	 */
 	public Dimension getSize(String element_name, String element_type)
 			throws Exception {
 		Dimension dimension = null;
@@ -201,6 +212,13 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
+	/*
+	 * Function to tag name of an element
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return tag
+	 */
 	public String getTagName(String element_name, String element_type)
 			throws Exception {
 		String tag = null;
@@ -216,6 +234,13 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
+	/*
+	 * Function to get text of an element
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return text
+	 */
 	public String getText(String element_name, String element_type)
 			throws Exception {
 		String text = null;
@@ -242,9 +267,13 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				//System.out.println(element);
+				// System.out.println(element);
 				element = findElement(element_name, element_type);
-				element.isDisplayed();
+				b = element.isDisplayed();
+				if (b == true)
+					flag = 1;
+				else
+					flag = 0;
 			} else {
 				flag = 0;
 			}
@@ -267,9 +296,13 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				//System.out.println(element);
+				// System.out.println(element);
 				element = findElement(element_name, element_type);
-				element.isEnabled();
+				b = element.isEnabled();
+				if (b == true)
+					flag = 1;
+				else
+					flag = 0;
 			} else {
 				flag = 0;
 			}
@@ -279,13 +312,24 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
+	/*
+	 * To check that field is selected or not
+	 * 
+	 * @param element_name, element_type, attribute
+	 * 
+	 * @return int
+	 */
 	public int isSelected(String element_name, String element_type) {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				//System.out.println(element);
+				// System.out.println(element);
 				element = findElement(element_name, element_type);
-				element.isSelected();
+				b = element.isSelected();
+				if (b == true)
+					flag = 1;
+				else
+					flag = 0;
 			} else {
 				flag = 0;
 			}
@@ -323,7 +367,7 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
-	/* 
+	/*
 	 * Use to type text in the field
 	 * 
 	 * @return int
@@ -356,10 +400,11 @@ public class WebDriverFactory extends TestBase {
 		try {
 			if (element_name != null) {
 				// Thread.sleep(Constants.DeltaConstants.time);
-				//System.out.println(element);
+				// System.out.println(element);
 				element = findElement(element_name, element_type);
 				element.sendKeys("\n");
 				// getDriver().findElement(By.name(fieldname)).sendKeys("\n");
+				flag = 1;
 			} else {
 				flag = 0;
 			}

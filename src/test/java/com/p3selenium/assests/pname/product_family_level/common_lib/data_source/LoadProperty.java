@@ -26,7 +26,12 @@ public class LoadProperty {
 			{
 				props.load(new FileInputStream(path + "element.properties"));
 			}
+			else if (file=="config")
+			{
+				props.load(new FileInputStream(path + "config.properties"));
+			}
 			
+			//Checking that the key for which user asked for value is null or not.
 			if (key != null) {
 				var = props.getProperty(key);
 			}
