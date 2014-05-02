@@ -129,8 +129,8 @@
 				<version>2.4.2</version>
 				<configuration>
 					<suiteXmlFiles>
-						<!-- <suiteXmlFile>${project.basedir}/testng.xml</suiteXmlFile>  --><!-- Path of testng.xml file here -->
-						<suiteXmlFile>D:\PROGRAMMING\Eclipse\p3selenium\testng.xml</suiteXmlFile>
+						<suiteXmlFile>${project.basedir}/testng.xml</suiteXmlFile><!-- Path of testng.xml file here -->
+						<!-- <suiteXmlFile>D:\PROGRAMMING\Eclipse\p3selenium\testng.xml</suiteXmlFile> -->
 					</suiteXmlFiles>
 
 					<properties>

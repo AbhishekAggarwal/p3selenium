@@ -19,7 +19,7 @@ public class ReadWriteExcel extends TestBase{
 		UtilityFactory uf = new UtilityFactory();
 		System.out.println(getSheet());
 		uf.logData(getSheet(), "testcaseName", "testCaseID", "expectedResult",
-		"actualResult", "fail", "Comment",2);
+		"actualResult", "fail", "Comment");
 		
 	}
 }

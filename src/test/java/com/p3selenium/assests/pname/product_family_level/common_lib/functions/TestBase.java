@@ -42,6 +42,8 @@ public class TestBase extends Bean {
 	WritableSheet sheet;
 	WritableWorkbook workbook;
 	String generate_excel_report;
+	
+	int sheet_pointer=1;
 
 	// private String project_root = System.getProperty("user.dir");
 	// private LoadProperty property = null;

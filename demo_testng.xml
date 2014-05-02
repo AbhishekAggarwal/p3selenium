@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="false">
+	<parameter name="browser" value="chrome" />
+	<test name="Test">
+		<parameter name="excel_name" value="TestExcel1" />
+		<classes>
+			<class name="com.p3selenium.scripts.pname.testcase.ReadWriteExcel" />
+		</classes>
+	</test> <!-- Test -->
+
+	<test name="Test1">
+		<parameter name="excel_name" value="TestExcel2" />
+		<classes>
+			<class name="com.p3selenium.scripts.pname.testcase.ReadWriteExcel" />
+		</classes>
+	</test>
+</suite> <!-- Suite -->

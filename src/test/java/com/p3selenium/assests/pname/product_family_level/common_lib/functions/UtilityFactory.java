@@ -50,12 +50,15 @@ public class UtilityFactory extends TestBase {
 	private String user;
 	private List<String> al1 = null;
 
+	
+	
+	
 	/*
 	 * This method is use to log the data in excel file
 	 */
 	public void logData(WritableSheet sheet, String testcaseName,
 			String testCaseID, String expectedResult, String actualResult,
-			String Status, String Comment, int row)  {
+			String Status, String Comment)  {
 
 		try{
 		System.out.println("write excel");
@@ -74,30 +77,33 @@ public class UtilityFactory extends TestBase {
 			cfobj.setBackground(Colour.RED);
 
 		cfobj.setWrap(true);
-		Label lblDate = new Label(0, row, testcaseName, cfobj);
+		
+		Label lblDate = new Label(0, sheet_pointer, testcaseName, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(1, row, testCaseID, cfobj);
+		lblDate = new Label(1, sheet_pointer, testCaseID, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(2, row, expectedResult, cfobj);
+		lblDate = new Label(2, sheet_pointer, expectedResult, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(3, row, testCaseID, cfobj);
+		lblDate = new Label(3, sheet_pointer, testCaseID, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(4, row, expectedResult, cfobj);
+		lblDate = new Label(4, sheet_pointer, expectedResult, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(5, row, actualResult, cfobj);
+		lblDate = new Label(5, sheet_pointer, actualResult, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(6, row, Status, cfobj);
+		lblDate = new Label(6, sheet_pointer, Status, cfobj);
 		sheet.addCell(lblDate);
 
-		lblDate = new Label(7, row, Comment, cfobj);
+		lblDate = new Label(7, sheet_pointer, Comment, cfobj);
 		sheet.addCell(lblDate);
 
+		sheet_pointer++;
+		
 		WritableCellFormat cf1 = new WritableCellFormat(DateFormats.FORMAT9);
 		DateTime dt = new DateTime(3, 1, new Date(), cf1);
 		sheet.addCell(dt);
