@@ -3,16 +3,9 @@
 <suite name="Suite" parallel="false">
 	<parameter name="browser" value="chrome" />
 	<test name="Test">
-		<parameter name="excel_name" value="TestExcel1" />
 		<classes>
-			<class name="com.p3selenium.scripts.pname.testcase.ReadWriteExcel" />
+			<class name="com.p3selenium.scripts.pname.testcase.TestScript" />
 		</classes>
 	</test> <!-- Test -->
 
-	<test name="Test1">
-		<parameter name="excel_name" value="TestExcel2" />
-		<classes>
-			<class name="com.p3selenium.scripts.pname.testcase.ReadWriteExcel" />
-		</classes>
-	</test>
 </suite> <!-- Suite -->

@@ -7,8 +7,6 @@ package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import jxl.Workbook;
 import jxl.write.WritableSheet;
@@ -20,21 +18,18 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Parameters;
 
-import com.itextpdf.text.log.Logger;
-import com.itextpdf.text.log.LoggerFactory;
 import com.p3selenium.assests.pname.product_family_level.common_lib.data_source.LoadProperty;
 
 public class TestBase extends Bean {
-	private WebDriver driver = null;
+	protected WebDriver driver = null;
 
-	private DesiredCapabilities capability = null;
+	protected DesiredCapabilities capability = null;
 	String test_name = null;
 	String username = System.getProperty("user.name");
 	String project_path = System.getProperty("user.dir");
@@ -44,9 +39,6 @@ public class TestBase extends Bean {
 	String generate_excel_report;
 	
 	int sheet_pointer=1;
-
-	// private String project_root = System.getProperty("user.dir");
-	// private LoadProperty property = null;
 
 	public WritableSheet getSheet() {
 		return sheet;

@@ -3,8 +3,6 @@ package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,12 +15,11 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableFont;
 import jxl.write.WritableSheet;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver;
@@ -31,6 +28,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.parser.PdfTextExtractor;
 import com.thoughtworks.selenium.SeleniumException;
@@ -93,29 +91,33 @@ public class WebDriverFactory extends TestBase {
 			}
 
 			return element;
-		} catch (Exception e) {
+		} catch (ElementNotFoundException | ElementNotVisibleException e) {
+
 			System.out
 					.println("------------------------------------------------------------------");
 			System.out
 					.println("Error in WebDriverFactory Class while finding the element on page");
 			System.out.println("Element name was '" + element_name
-					+ "' which was not found and type was '" + element_type
-					+ "'");
-			System.out.println("Below is the Stack Trace");
+					+ "and type was '" + element_type
+					+ "' which was not found.");
+			System.out.println("Below is the Stack Trace:");
 			e.printStackTrace();
-			System.out
-					.println("------------------------------------------------------------------");
-			return null;
+			throw e;
 			/*
 			 * @Dev: Abhishek
 			 * 
-			 * @Status: see and update the exception handling
-			 * mechanism. use centralized exception handling ref:
-			 * http://stackoverflow
+			 * @Status: see and update the exception handling mechanism. use
+			 * centralized exception handling ref: http://stackoverflow
 			 * .com/questions/6909920/common-centralized-method
 			 * -to-handle-multiple-exceptions Also find and implement a graceful
 			 * shutting down method of script when ever this error occur
 			 */
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			System.out
+					.println("------------------------------------------------------------------");
+			throw e;
 		}
 	}
 
@@ -447,7 +449,6 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
-
 	/* @dev */
 
 	/*
@@ -473,64 +474,61 @@ public class WebDriverFactory extends TestBase {
 		}
 	}
 
-	
 	/*
 	 * This method is use to log the data in excel file
 	 */
 	public void logData(WritableSheet sheet, String testcaseName,
 			String testCaseID, String expectedResult, String actualResult,
-			String Status, String Comment)  {
+			String Status, String Comment) {
 
-		try{
-		System.out.println("write excel");
-		// Workbook readbook = Workbook.getWorkbook(new
-		// File(path+"\\Report.xls"));
+		try {
+			System.out.println("write excel");
+			// Workbook readbook = Workbook.getWorkbook(new
+			// File(path+"\\Report.xls"));
 
-		// Sheet addUser = readbook.getSheet("AddUser");
+			// Sheet addUser = readbook.getSheet("AddUser");
 
-		WritableFont wfobj = new WritableFont(WritableFont.ARIAL, 12,
-				WritableFont.BOLD);
-		WritableCellFormat cfobj = new WritableCellFormat(wfobj);
+			WritableFont wfobj = new WritableFont(WritableFont.ARIAL, 12,
+					WritableFont.BOLD);
+			WritableCellFormat cfobj = new WritableCellFormat(wfobj);
 
-		if (Status == "success")
-			cfobj.setBackground(Colour.GREEN);
-		else
-			cfobj.setBackground(Colour.RED);
+			if (Status == "success")
+				cfobj.setBackground(Colour.GREEN);
+			else
+				cfobj.setBackground(Colour.RED);
 
-		cfobj.setWrap(true);
-		
-		Label lblDate = new Label(0, sheet_pointer, testcaseName, cfobj);
-		sheet.addCell(lblDate);
+			cfobj.setWrap(true);
 
-		lblDate = new Label(1, sheet_pointer, testCaseID, cfobj);
-		sheet.addCell(lblDate);
+			Label lblDate = new Label(0, sheet_pointer, testcaseName, cfobj);
+			sheet.addCell(lblDate);
 
-		lblDate = new Label(2, sheet_pointer, expectedResult, cfobj);
-		sheet.addCell(lblDate);
+			lblDate = new Label(1, sheet_pointer, testCaseID, cfobj);
+			sheet.addCell(lblDate);
 
-		lblDate = new Label(3, sheet_pointer, testCaseID, cfobj);
-		sheet.addCell(lblDate);
+			lblDate = new Label(2, sheet_pointer, expectedResult, cfobj);
+			sheet.addCell(lblDate);
 
-		lblDate = new Label(4, sheet_pointer, expectedResult, cfobj);
-		sheet.addCell(lblDate);
+			lblDate = new Label(3, sheet_pointer, testCaseID, cfobj);
+			sheet.addCell(lblDate);
 
-		lblDate = new Label(5, sheet_pointer, actualResult, cfobj);
-		sheet.addCell(lblDate);
+			lblDate = new Label(4, sheet_pointer, expectedResult, cfobj);
+			sheet.addCell(lblDate);
 
-		lblDate = new Label(6, sheet_pointer, Status, cfobj);
-		sheet.addCell(lblDate);
+			lblDate = new Label(5, sheet_pointer, actualResult, cfobj);
+			sheet.addCell(lblDate);
 
-		lblDate = new Label(7, sheet_pointer, Comment, cfobj);
-		sheet.addCell(lblDate);
+			lblDate = new Label(6, sheet_pointer, Status, cfobj);
+			sheet.addCell(lblDate);
 
-		sheet_pointer++;
-		
-		WritableCellFormat cf1 = new WritableCellFormat(DateFormats.FORMAT9);
-		DateTime dt = new DateTime(3, 1, new Date(), cf1);
-		sheet.addCell(dt);
-		}
-		catch(Exception e)
-		{
+			lblDate = new Label(7, sheet_pointer, Comment, cfobj);
+			sheet.addCell(lblDate);
+
+			sheet_pointer++;
+
+			WritableCellFormat cf1 = new WritableCellFormat(DateFormats.FORMAT9);
+			DateTime dt = new DateTime(3, 1, new Date(), cf1);
+			sheet.addCell(dt);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
@@ -543,12 +541,12 @@ public class WebDriverFactory extends TestBase {
 	 * 
 	 * @return cells_text
 	 */
-	public List<String> getTableRow(String element_name,String element_type, int row_number,
-			int column_start, int column_end) {
+	public List<String> getTableRow(String element_name, String element_type,
+			int row_number, int column_start, int column_end) {
 		// System.out.println(table_id);
 		List<String> cells_text = new ArrayList<String>();
-		element = findElement(element_name,element_type);
-		//WebElement baseTable = getDriver().findElement(By.id(element_name));
+		element = findElement(element_name, element_type);
+		// WebElement baseTable = getDriver().findElement(By.id(element_name));
 		List<WebElement> tableRows = element.findElements(By.tagName("tr"));
 		// System.out.println("size " + tableRows.size());
 		WebElement row = tableRows.get(row_number);
@@ -590,12 +588,15 @@ public class WebDriverFactory extends TestBase {
 	 * @param
 	 * 
 	 * @return String
+	 * 
+	 * This method points to the project's root folder give file variable the
+	 * file name like file.csv if your file is in root folder
 	 */
 	public String fetchDataFromCSV(String file) {
 		try {
 			String path = System.getProperty("user.dir");
-			//path = path + "\\src\\test\\java\\csv\\users.csv";
-			path=path+file;
+			// path = path + "\\src\\test\\java\\csv\\users.csv";
+			path = path + file;
 			System.out.println(path);
 			al1 = new ArrayList<String>();
 
@@ -614,6 +615,127 @@ public class WebDriverFactory extends TestBase {
 		user = al1.get(0);
 		return user;
 	}
+	
+
+
+	public String getToolTipText(String element_name, String element_type, WebDriver wDriver) {
+		Actions action = new Actions(wDriver);
+		action.keyDown(Keys.CONTROL).sendKeys(Keys.END).perform();
+		action.moveToElement(findElement(element_name,element_type)).build().perform();
+		return findElement(element_name, element_type).getText();
+
+	}
+
+	public void clearField(String objectclicked, String type) {
+		if (objectclicked != null) {
+			if ("id".equalsIgnoreCase(type)) {
+				if (getDriver().findElement(By.id(objectclicked)).isEnabled()) {
+					getDriver().findElement(By.id(objectclicked)).click();
+					WebElement toClear = getDriver().findElement(
+							By.id(objectclicked));
+					toClear.sendKeys(Keys.CONTROL + "a");
+					toClear.sendKeys(Keys.DELETE);
+					flag = 1;
+				} else {
+					flag = 0;
+				}
+
+			}
+		}
+
+	}
+
+	//Doubt
+	public Long findText(String objectclicked, int location) throws Exception {
+
+		try {
+			// Thread.sleep(Constants.DeltaConstants.time);
+			String mMiles = getDriver().findElement(By.name(objectclicked))
+					.getText();
+			String[] arr = mMiles.split(" ");
+			String[] arr1 = arr[location].split(",");
+			mMiles = "";
+			for (int i = 0; i < arr1.length; i++) {
+				mMiles = mMiles + arr1[i];
+			}
+			splittedText = Long.parseLong(mMiles);
+		} catch (Exception err) {
+			System.out.println("in error" + err.getMessage());
+		}
+		return splittedText;
+	}
+
+
+
+	// ////////////////////////////////////DD////////////////////////////////////
+	/*
+	 * Function for selection value from drop down list or combo box Created
+	 */
+
+	public int selectDropDownValue(String drop_down_name, String dropDownValue,
+			String element_type) {
+		try {
+			if (drop_down_name != null) {
+				new Select(findElement(drop_down_name, element_type))
+						.selectByValue(dropDownValue);
+				if (dropDownValue.indexOf(selenium
+						.getSelectedLabel(drop_down_name)) != -1) {
+					flag = 1;
+				} else {
+					flag = 0;
+				}
+				return flag;
+			} else
+				flag = 0;
+			return flag;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
+
+	/*
+	 * Function for verification of value from drop down list or combo box
+	 */
+	public int verifyValuebyid(String dropDownName, String dropDownValue) {
+		try {
+			// Thread.sleep(Constants.DeltaConstants.time);
+			if (dropDownName != null && dropDownValue != null) {
+
+				if (dropDownValue.indexOf(getDriver().findElement(
+						By.name(dropDownName)).getAttribute("value")) != -1) {
+					flag = 1;
+				} else {
+					flag = 0;
+
+				}
+
+			} else
+				flag = 0;
+			return flag;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
+
+	/*
+	 * Function for selection multiple values from multi-select element Created
+	 */
+	public int addSelection(String dropDownName, String dropDownValue) {
+		try {
+			// Thread.sleep(Constants.DeltaConstants.time);
+			if (dropDownName != null || dropDownValue != null) {
+				selenium.addSelection(dropDownName, dropDownValue);
+				flag = 1;
+				return flag;
+			} else
+				flag = 0;
+			return flag;
+		} catch (Exception ex) {
+			return 0;
+		}
+	}
+
+	// //////////////////////////////////DD////////////////////////////////////
 
 	/*
 	 * Function for waiting for a pop up window
@@ -652,7 +774,7 @@ public class WebDriverFactory extends TestBase {
 	 * 
 	 * @return "current window"
 	 */
-	public  void selectBlankWindow() {
+	public void selectBlankWindow() {
 		String current = getDriver().getWindowHandle();
 		// Find the first window without a "name" attribute
 		List<String> handles = new ArrayList<String>(getDriver()
@@ -707,216 +829,6 @@ public class WebDriverFactory extends TestBase {
 		getDriver().switchTo().window(current);
 		throw new SeleniumException("Unable to select window with title: "
 				+ title);
-	}
-
-	/*
-	 * Function for selection value from drop down list or combo box Created
-	 */
-
-	public int selectDropDownValue(String drop_down_name, String dropDownValue, String element_type) {
-		try {
-			if (drop_down_name != null) {
-				new Select(findElement(drop_down_name,element_type)).selectByValue(dropDownValue);
-				if (dropDownValue.indexOf(selenium.getSelectedLabel(drop_down_name)) != -1) {
-					flag = 1;
-				} else {
-					flag = 0;
-				}
-				return flag;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-	}
-
-	/*public int selectDropDownValue(String dropDownID, String dropDownValue) {
-		try {
-			if (dropDownID != null) {
-				new Select(getDriver().findElement(By.id(dropDownID))).selectByValue(dropDownValue);
-				if (dropDownValue.indexOf(selenium.getSelectedLabel(dropDownID)) != -1) {
-					flag = 1;
-				} else {
-					flag = 0;
-				}
-				return flag;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-	}*/
-
-	/*
-	 * Function for verification of value from drop down list or combo box
-	 */
-	public int verifyValuebyid(String dropDownName, String dropDownValue) {
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			if (dropDownName != null && dropDownValue != null) {
-
-				if (dropDownValue.indexOf(getDriver().findElement(
-						By.name(dropDownName)).getAttribute("value")) != -1) {
-					flag = 1;
-				} else {
-					flag = 0;
-
-				}
-
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-	}
-
-	/*
-	 * Function for selection multiple values from multi-select element Created
-	 */
-	public int addSelection(String dropDownName, String dropDownValue) {
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			if (dropDownName != null || dropDownValue != null) {
-				selenium.addSelection(dropDownName, dropDownValue);
-				flag = 1;
-				return flag;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
-	}
-
-	/*
-	 * public int compareText(String ActualText, String textverify) { try { //
-	 * Thread.sleep(Constants.DeltaConstants.time); if (ActualText != null) { if
-	 * (ActualText.equals(textverify)) { flag = 1; } else { flag = 0; } return
-	 * flag; } else flag = 0; return flag; } catch (Exception ex) { return 0; }
-	 * }
-	 */
-
-	public Long findText(String objectclicked, int location) throws Exception {
-
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			String mMiles = getDriver().findElement(By.name(objectclicked)).getText();
-			String[] arr = mMiles.split(" ");
-			String[] arr1 = arr[location].split(",");
-			mMiles = "";
-			for (int i = 0; i < arr1.length; i++) {
-				mMiles = mMiles + arr1[i];
-			}
-			splittedText = Long.parseLong(mMiles);
-		} catch (Exception err) {
-			System.out.println("in error" + err.getMessage());
-		}
-		return splittedText;
-	}
-
-	public Long findxpathText(String objectclicked, int location)
-			throws Exception {
-
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			String mMiles = getDriver().findElement(By.xpath(objectclicked))
-					.getText();
-			String[] arr = mMiles.split(" ");
-			// String[] arr1 = arr[location].split(",");
-			String[] arr2 = arr[location].split(":");
-
-			mMiles = "";
-			for (int i = 0; i < arr2.length; i++) {
-				mMiles = mMiles + arr2[i];
-			}
-			String nMiles = mMiles.replace(",", "");
-			splittedText = Long.parseLong(nMiles);
-		} catch (Exception err) {
-			System.out.println("in error" + err.getMessage());
-		}
-		return splittedText;
-	}
-
-
-	// Function for reading Test data from excel sheet testcases_driver
-
-	public String getToolTipText(String elementXPath, WebDriver wDriver) {
-		Actions action = new Actions(wDriver);
-		action.keyDown(Keys.CONTROL).sendKeys(Keys.END).perform();
-		action.moveToElement(wDriver.findElement(By.xpath(elementXPath)))
-				.build().perform();
-
-		return wDriver.findElement(By.xpath(elementXPath)).getText();
-
-	}
-
-	public void clearField(String objectclicked, String type) {
-		if (objectclicked != null) {
-			if ("id".equalsIgnoreCase(type)) {
-				if (getDriver().findElement(By.id(objectclicked)).isEnabled()) {
-					getDriver().findElement(By.id(objectclicked)).click();
-					WebElement toClear = getDriver().findElement(
-							By.id(objectclicked));
-					toClear.sendKeys(Keys.CONTROL + "a");
-					toClear.sendKeys(Keys.DELETE);
-					flag = 1;
-				} else {
-					flag = 0;
-				}
-
-			}
-		}
-
-	}
-
-
-	public boolean isThisDateValid(String dateToValidate, String dateFromat) {
-
-		if (dateToValidate == null) {
-			return false;
-		}
-
-		SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
-		sdf.setLenient(false);
-
-		try {
-
-			// if not valid, it will throw ParseException
-			Date date = sdf.parse(dateToValidate);
-			System.out.println(date);
-
-		} catch (ParseException e) {
-
-			e.printStackTrace();
-			return false;
-		}
-
-		return true;
-	}
-
-
-	/*
-	 * Function for waiting on a page
-	 * 
-	 * @param msec
-	 * 
-	 * @return int
-	 */
-	public int waitForPageToLoad(String msec) {
-		try {
-			// Thread.sleep(Constants.DeltaConstants.time);
-			if (msec != null) {
-				selenium.waitForPageToLoad(msec);
-				flag = 1;
-			} else
-				flag = 0;
-			return flag;
-		} catch (Exception ex) {
-			return 0;
-		}
 	}
 
 	/*-------------------------------------Custom Methods Ends---------------------------------------*/
