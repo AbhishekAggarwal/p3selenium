@@ -7,6 +7,7 @@ package com.p3selenium.assests.pname.product_family_level.common_lib.functions;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import jxl.Workbook;
 import jxl.write.WritableSheet;
@@ -18,6 +19,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -30,15 +32,21 @@ public class TestBase extends Bean {
 	protected WebDriver driver = null;
 
 	protected DesiredCapabilities capability = null;
-	String test_name = null;
-	String username = System.getProperty("user.name");
-	String project_path = System.getProperty("user.dir");
+	protected String test_name = null;
+	protected String username = System.getProperty("user.name");
+	protected String project_path = System.getProperty("user.dir");
 
-	WritableSheet sheet;
-	WritableWorkbook workbook;
-	String generate_excel_report;
-	
-	int sheet_pointer=1;
+	protected WritableSheet sheet;
+	protected WritableWorkbook workbook;
+	protected String generate_excel_report;
+
+	protected int sheet_pointer = 1;
+
+	private String url = null;
+	private String path = null;
+
+	private static String SELENIUM_HUB_URL;
+	private static String TARGET_SERVER_URL;
 
 	public WritableSheet getSheet() {
 		return sheet;
@@ -59,7 +67,8 @@ public class TestBase extends Bean {
 
 			generate_excel_report = LoadProperty.getVar(
 					"generate_excel_report", "config");
-			System.out.println(generate_excel_report);
+			System.out.println("generate_excel_report is set: '"
+					+ generate_excel_report + "'");
 			if (generate_excel_report.equals("true")) {
 				String data_path = project_path
 						+ "\\src\\test\\resources\\TestData";
@@ -71,6 +80,14 @@ public class TestBase extends Bean {
 				System.out.println("else");
 			}
 
+			SELENIUM_HUB_URL = getConfigurationProperty("SELENIUM_HUB_URL",
+					"test.selenium.hub.url", "http://localhost:4444/wd/hub");
+			// logger.info("using Selenium hub at: " + SELENIUM_HUB_URL);
+
+			TARGET_SERVER_URL = getConfigurationProperty("TARGET_SERVER_URL",
+					"test.target.server.url", url);
+			// logger.info("using target server at: " + TARGET_SERVER_URL);
+
 			System.out.println("browser name: " + browser);
 			if (browser.equalsIgnoreCase("firefox")) {
 
@@ -79,9 +96,19 @@ public class TestBase extends Bean {
 				capability = DesiredCapabilities.firefox();
 				capability.setBrowserName(browser);
 				capability.setPlatform(org.openqa.selenium.Platform.ANY);
-				System.out.println("firefox");
-				setDriver(new FirefoxDriver(capability));
-				System.out.println("firefox1");
+				// setDriver(new FirefoxDriver(capability));
+
+				System.out.println(LoadProperty.getVar("use_grid", "config"));
+				if (LoadProperty.getVar("use_grid", "config").equals("false")) {
+					setDriver(new FirefoxDriver(capability));
+					System.out.println("false");
+				} else if (LoadProperty.getVar("use_grid", "config").equals(
+						"true")) {
+					setDriver(new RemoteWebDriver(new URL(SELENIUM_HUB_URL),
+							capability));
+					getDriver().get(TARGET_SERVER_URL + "/");
+				}
+
 			}
 
 			else if (browser.equalsIgnoreCase("iexplore")) {
@@ -91,15 +118,26 @@ public class TestBase extends Bean {
 						+ "\\src\\test\\resources\\driver\\IEDriverServer.exe");
 				capability.setBrowserName(browser);
 				capability.setPlatform(org.openqa.selenium.Platform.WINDOWS);
-				setDriver(new InternetExplorerDriver(capability));
+				// setDriver(new InternetExplorerDriver(capability));
+
+				System.out.println(LoadProperty.getVar("use_grid", "config"));
+				if (LoadProperty.getVar("use_grid", "config").equals("false")) {
+					setDriver(new InternetExplorerDriver(capability));
+					System.out.println("false");
+				} else if (LoadProperty.getVar("use_grid", "config").equals(
+						"true")) {
+					setDriver(new RemoteWebDriver(new URL(SELENIUM_HUB_URL),
+							capability));
+					getDriver().get(TARGET_SERVER_URL + "/");
+				}
 			}
 
 			else if (browser.equalsIgnoreCase("chrome")) {
 				capability = DesiredCapabilities.chrome();
-				/*
-				 * System.setProperty("webdriver.chrome.driver",
-				 * "C:\\chromedriver2.8.exe");
-				 */
+
+				System.out.println("chrome");
+				// System.setProperty("webdriver.chrome.driver","C:\\chromedriver2.8.exe");
+
 				System.setProperty(
 						"webdriver.chrome.driver",
 						project_path
@@ -107,14 +145,27 @@ public class TestBase extends Bean {
 
 				capability.setBrowserName(browser);
 				capability.setPlatform(org.openqa.selenium.Platform.ANY);
-				setDriver(new ChromeDriver(capability));
 
+				// setDriver(new ChromeDriver(capability));
+				System.out.println(LoadProperty.getVar("use_grid", "config"));
+				if (LoadProperty.getVar("use_grid", "config").equals("false")) {
+					setDriver(new ChromeDriver(capability));
+					System.out.println("false");
+				}
+
+				else if (LoadProperty.getVar("use_grid", "config").equals(
+						"true")) {
+					System.out.println("true");
+					setDriver(new RemoteWebDriver(new URL(SELENIUM_HUB_URL),
+							capability));
+					getDriver().get(TARGET_SERVER_URL + "/");
+				}
 			}
 
 			getDriver().manage().window().maximize();
 			return getDriver();
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			return null;
 		}
@@ -129,12 +180,10 @@ public class TestBase extends Bean {
 
 		driver.quit();
 		if (generate_excel_report.equals("true")) {
-		workbook.write();
-		workbook.close();
-		}
-		else
-		{
-			
+			workbook.write();
+			workbook.close();
+		} else {
+
 		}
 		System.out.println("Driver quit for Test: '" + test_name + "'");
 		System.out.println("\n");
@@ -149,14 +198,30 @@ public class TestBase extends Bean {
 	}
 
 	@AfterSuite(alwaysRun = true)
-	public void tearDownAfterSuit() {
+	public void tearDownAfterSuit() throws IOException, WriteException {
 		if (driver != null) {
 			System.out
 					.println("Driver of Test name: "
 							+ test_name
 							+ " is closing at the end of suit, means this script did not worked properly");
 			driver.quit();
+			workbook.write();
+			workbook.close();
 		}
+	}
+
+	private static String getConfigurationProperty(String envKey,
+			String sysKey, String defValue) {
+		String retValue = defValue;
+		String envValue = System.getenv(envKey);
+		String sysValue = System.getProperty(sysKey);
+		// system property prevails over environment variable
+		if (sysValue != null) {
+			retValue = sysValue;
+		} else if (envValue != null) {
+			retValue = envValue;
+		}
+		return retValue;
 	}
 
 }
