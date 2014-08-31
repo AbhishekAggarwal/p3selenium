@@ -60,6 +60,7 @@ public class TestBase extends Bean {
 	@BeforeClass
 	public WebDriver init(String browser, String excel_name) {
 		try {
+
 			String url = LoadProperty.getVar("url", "data");
 			System.out.println("URL: '" + url + "'");
 			test_name = this.getClass().getSimpleName();
@@ -77,7 +78,7 @@ public class TestBase extends Bean {
 				sheet = workbook.createSheet(excel_name, 0);
 
 			} else {
-				System.out.println("else");
+				System.out.println("generate_excel_report is set to false");
 			}
 
 			SELENIUM_HUB_URL = getConfigurationProperty("SELENIUM_HUB_URL",
@@ -101,7 +102,7 @@ public class TestBase extends Bean {
 				System.out.println(LoadProperty.getVar("use_grid", "config"));
 				if (LoadProperty.getVar("use_grid", "config").equals("false")) {
 					setDriver(new FirefoxDriver(capability));
-					System.out.println("false");
+					System.out.println("grid is false");
 				} else if (LoadProperty.getVar("use_grid", "config").equals(
 						"true")) {
 					setDriver(new RemoteWebDriver(new URL(SELENIUM_HUB_URL),
@@ -123,7 +124,7 @@ public class TestBase extends Bean {
 				System.out.println(LoadProperty.getVar("use_grid", "config"));
 				if (LoadProperty.getVar("use_grid", "config").equals("false")) {
 					setDriver(new InternetExplorerDriver(capability));
-					System.out.println("false");
+					System.out.println("grid is false");
 				} else if (LoadProperty.getVar("use_grid", "config").equals(
 						"true")) {
 					setDriver(new RemoteWebDriver(new URL(SELENIUM_HUB_URL),
@@ -150,7 +151,7 @@ public class TestBase extends Bean {
 				System.out.println(LoadProperty.getVar("use_grid", "config"));
 				if (LoadProperty.getVar("use_grid", "config").equals("false")) {
 					setDriver(new ChromeDriver(capability));
-					System.out.println("false");
+					System.out.println("grid is false");
 				}
 
 				else if (LoadProperty.getVar("use_grid", "config").equals(
@@ -205,8 +206,12 @@ public class TestBase extends Bean {
 							+ test_name
 							+ " is closing at the end of suit, means this script did not worked properly");
 			driver.quit();
-			workbook.write();
-			workbook.close();
+			if (generate_excel_report.equals("true")) {
+				workbook.write();
+				workbook.close();
+			} else {
+
+			}
 		}
 	}
 

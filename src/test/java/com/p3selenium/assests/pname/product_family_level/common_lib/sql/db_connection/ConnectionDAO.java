@@ -25,8 +25,11 @@ public abstract class ConnectionDAO {
 				Class.forName("com.mysql.jdbc.Driver");
 			}
 
-			else {
+			else if(db_connection == "oracle"){
 				Class.forName("oracle.jdbc.driver.OracleDriver");
+			}
+			else {
+				System.out.println("Currently p3selenium only support mysql and oracle DB");
 			}
 		} catch (ClassNotFoundException e) {
 			System.out.println(e);
