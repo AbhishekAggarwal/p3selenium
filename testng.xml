@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<!-- 
+<suite> is kind of root tag in testng.xml file. All test are defined in suite using <test> tag
+-->
 <suite name="Suite" parallel="false">
+
+<!--
+We can define parameters under suite. Parameter defined here passes with every class defined in the test
+-->
 	<parameter name="browser" value="chrome" />
 	<parameter name="excel_name" value="none" />
-	<test name="Test">
+	
+	<!--
+	We have given name to our test that is P3testing. There can be multiple <test> tags in a suite
+	-->
+	<test name="P3testing">
 		<classes>
-			<!-- <class name="com.p3selenium.scripts.pname.testcase.TraverseMenu"  -->/>
-			<class name="com.p3selenium.scripts.pname.testcase.TestScript" />
+		
+		<!--
+		These are our classes. Each class represent one testcase  
+		-->
+			<class name="com.p3selenium.scripts.pname.testcase.VerifyPageTitle"  />
 		</classes>
-	</test> <!-- Test -->
-
-</suite> <!-- Suite -->
+	</test>
+</suite>
