@@ -179,7 +179,8 @@ public class TestBase extends Bean {
 		System.out.println("Shuting down driver of Test Name: '" + test_name
 				+ "'");
 
-		driver.quit();
+		driver.close();
+		//driver.quit();
 		if (generate_excel_report.equals("true")) {
 			workbook.write();
 			workbook.close();
@@ -201,10 +202,7 @@ public class TestBase extends Bean {
 	@AfterSuite(alwaysRun = true)
 	public void tearDownAfterSuit() throws IOException, WriteException {
 		if (driver != null) {
-			System.out
-					.println("Driver of Test name: "
-							+ test_name
-							+ " is closing at the end of suit, means this script did not worked properly");
+			System.out.println("In @AfterSuite");
 			driver.quit();
 			if (generate_excel_report.equals("true")) {
 				workbook.write();
