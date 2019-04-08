@@ -2,7 +2,7 @@
 P3selenium
 ==========
 
-**Announcement** : We are ready to extend this framwork and publish the community version with all tutorials to learn and implement the framework for your organization. For this effort, we are looking for 2 individuals (part time) who can code and contribute to the community. If you are interested drop us a message on [**abhishek.smile09@gmail.com**](abhishek.smile09@gmail.com "abhishek.smile09@gmail.com") or https://www.facebook.com/p3lang/
+**Announcement** : We are ready to extend this framwork and publish the community version with all tutorials to learn and implement the framework for your organization. For this effort, we are looking for 2 individuals (part time) who can code and contribute to the community. If you are interested drop us a message on [**er.abhishekaggarwal10@gmail.com**](er.abhishekaggarwal10@gmail.com "er.abhishekaggarwal10@gmail.com")
 
 Repository Name: **p3selenium**
 
